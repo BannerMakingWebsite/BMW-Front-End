@@ -1,14 +1,22 @@
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import Modal from "./components/Modal";
+import ModalContentsImageSize from "./components/Modal/ImageSize";
 import { GlobalStyle } from "./styles/globalStyle";
 import theme from "./styles/theme";
 
 function App() {
+  const [modalState, setModalState] = useState<JSX.Element>(
+    <ModalContentsImageSize />
+  );
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        {modalState && <Modal title="이미지 크기 변경" contents={modalState} />}
         <BrowserRouter>
           <Routes>
             <Route
