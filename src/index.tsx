@@ -1,22 +1,28 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { GlobalStyle } from "./globalStyle";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "./styles/globalStyle";
+import theme from "./styles/theme";
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <div>hello world</div>
-            </>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <div>hello world</div>
+                </>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </>
   );
 }
 
