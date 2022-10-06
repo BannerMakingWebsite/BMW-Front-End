@@ -61,7 +61,7 @@ function ModalContentsLogin() {
 
 export default ModalContentsLogin;
 
-const Background = styled.div`
+const Background = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
