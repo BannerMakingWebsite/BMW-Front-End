@@ -23,6 +23,10 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
+          test: /\.(png|jpe?g|gif)$/i,
+          loader: "file-loader",
+        },
+        {
           test: /\.tsx?$/,
           use: ["babel-loader", "ts-loader"],
         },
