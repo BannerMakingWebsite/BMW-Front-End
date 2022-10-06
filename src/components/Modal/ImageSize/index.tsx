@@ -83,12 +83,12 @@ function ModalContentsImageSize() {
 
 export default ModalContentsImageSize;
 
-const Background = styled.span`
+const Background = styled.div`
   width: 43.75rem;
 
   display: flex;
 
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
 
   > div {
     margin-left: 0.75rem;
@@ -111,14 +111,14 @@ const Background = styled.span`
     > strong {
       margin-bottom: 0.5rem;
 
-      color: #ff0000;
+      color: ${({ theme }) => theme.colors.error};
 
       @keyframes fadeIn {
         0% {
-          color: #fefefe;
+          color: ${({ theme }) => theme.colors.white};
         }
         100% {
-          color: #ff0000;
+          color: ${({ theme }) => theme.colors.error};
         }
       }
 
@@ -150,24 +150,27 @@ const Background = styled.span`
     width: 100%;
     height: 5rem;
 
-    color: #fefefe;
+    color: ${({ theme }) => theme.colors.white};
     font-size: 4rem;
 
     border: 0;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   }
 
   button {
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.white};
 
     width: 100%;
     height: 5rem;
 
-    font-size: 2rem;
+    font-size: ${({ theme }) => theme.fontSizes.title};
 
     border: none;
     border-radius: 1.5rem;
     cursor: pointer;
+    transition: filter 0.25s ease;
+
+    ${({ theme }) => theme.common.hoverEffect}
   }
 `;
 
@@ -184,7 +187,7 @@ const InputWrapper = styled.div`
     justify-content: flex-end;
     align-items: flex-end;
 
-    color: #aaa;
+    color: ${({ theme }) => theme.colors.grey};
 
     user-select: none;
   }
