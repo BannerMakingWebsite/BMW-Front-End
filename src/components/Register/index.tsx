@@ -9,9 +9,6 @@ function ModalContentsRegister() {
   const [nameWarning, setNameWarning] = useState<string>("");
   const [pwWarning, setPwWarning] = useState<string>("");
   const [mailWarning, setMailWarning] = useState<string>("");
-  const nameRef = useRef<HTMLInputElement>(null);
-  const pwRef = useRef<HTMLInputElement>(null);
-  const mailRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -22,7 +19,7 @@ function ModalContentsRegister() {
             <label htmlFor="name">닉네임</label>
             {nameWarning !== "" && <span>{nameWarning}</span>}
           </LabelWrapper>
-          <Input id="name" ref={nameRef} />
+          <Input id="name" />
         </div>
         <div>
           <LabelWrapper labelIndex={pwLabelIndex}>
