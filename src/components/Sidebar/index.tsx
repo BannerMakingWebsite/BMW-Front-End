@@ -6,6 +6,9 @@ function Sidebar() {
   return (
     <Background>
       <IconsWrapper>
+        <Arrow>
+          <img src={Icons.MenuArrow} />
+        </Arrow>
         <Icon src={Icons.Template} name="템플릿" />
         <Icon src={Icons.Image} name="이미지" />
         <Icon src={Icons.Figure} name="도형" />
@@ -69,4 +72,13 @@ const IconWrapper = styled.div`
   :not(:last-child) {
     margin-bottom: ${pxToRem(40)}rem;
   }
+`;
+
+const Arrow = styled.div`
+  width: ${pxToRem(45)}rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: ${pxToRem(38)}rem;
 `;
