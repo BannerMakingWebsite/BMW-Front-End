@@ -3,6 +3,7 @@ import {
   PrivacyPolicyDiscretion,
   Purpose,
 } from "../../../assets/constants/privacy";
+import Button from "../../button";
 
 function ModalContentsPrivacy() {
   return (
@@ -34,9 +35,7 @@ function ModalContentsPrivacy() {
           <p>{PrivacyPolicyDiscretion[4]}</p>
           <p>{PrivacyPolicyDiscretion[5]}</p>
         </PhraseWrapper>
-        <div>
-          <button>확인</button>
-        </div>
+        <Button type="big" label="확인" />
       </Background>
     </>
   );
@@ -48,26 +47,8 @@ const Background = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
   color: ${({ theme }) => theme.colors.white};
-
-  button {
-    background-color: ${({ theme }) => theme.colors.bg1f};
-
-    width: 39rem;
-    height: 5rem;
-
-    color: ${({ theme }) => theme.colors.white};
-    font-size: ${({ theme }) => theme.fontSizes.title};
-
-    border: 0.1px solid ${({ theme }) => theme.colors.grey};
-    border-radius: 1.5rem;
-    cursor: pointer;
-    transition: filter 0.25s ease;
-
-    ${({ theme }) => theme.common.hoverEffect}
-  }
 `;
 
 const TitleWrapper = styled.div`

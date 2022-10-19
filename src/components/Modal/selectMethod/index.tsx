@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Upload, URL } from "../../../assets/images";
+import Button from "../../button";
 
 function ModalContentsSelectMethod() {
   return (
@@ -25,7 +26,7 @@ function ModalContentsSelectMethod() {
           </div>
         </Method>
       </div>
-      <button>취소</button>
+      <Button type="big" label="취소" />
     </Background>
   );
 }
@@ -53,23 +54,6 @@ const Background = styled.div`
 
   input {
     display: none;
-  }
-
-  button {
-    background-color: ${({ theme }) => theme.colors.bg1f};
-
-    width: 39rem;
-    height: 5rem;
-
-    color: ${({ theme }) => theme.colors.white};
-    font-size: ${({ theme }) => theme.fontSizes.title};
-
-    border: 0.1px solid ${({ theme }) => theme.colors.grey};
-    border-radius: 1.5rem;
-    cursor: pointer;
-    transition: filter 0.25s ease;
-
-    ${({ theme }) => theme.common.hoverEffect}
   }
 `;
 
