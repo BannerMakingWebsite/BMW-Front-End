@@ -12,16 +12,22 @@ module.exports = (env, argv) => {
     output: {
       path: path.join(__dirname, "/build"),
       filename: "[name].js",
+      publicPath: "/",
     },
     devServer: {
       port: 3000,
       hot: true,
+      historyApiFallback: true,
     },
     resolve: {
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     module: {
       rules: [
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          loader: "file-loader",
+        },
         {
           test: /\.tsx?$/,
           use: ["babel-loader", "ts-loader"],

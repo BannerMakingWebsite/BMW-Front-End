@@ -2,33 +2,34 @@ import { useState } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import Background from "./components/Background";
+import Header from "./components/Header";
 import Modal from "./components/Modal";
 import ModalContentsLogin from "./components/Modal/Login";
+import Sidebar from "./components/Sidebar";
 import { GlobalStyle } from "./styles/globalStyle";
 import theme from "./styles/theme";
 
 function App() {
-  const [modalState, setModalState] = useState<JSX.Element>(
-    <ModalContentsLogin />
-  );
-
   return (
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        {modalState && <Modal title="이미지 크기 변경" contents={modalState} />}
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <div>hello world</div>
-                </>
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+        <Header />
+        <Sidebar />
+        <Background>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                  </>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </Background>
       </ThemeProvider>
     </>
   );

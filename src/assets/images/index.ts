@@ -7,3 +7,4 @@ export { default as JPG } from "./JPG.png";
 export { default as PNG } from "./PNG.png";
 export { default as PDF } from "./PDF.png";
 export { default as Clipboard } from "./Clipboard.png";
+export * as Icons from "./sidebar";
