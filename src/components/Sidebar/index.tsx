@@ -68,7 +68,8 @@ const IconWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
   :not(:last-child) {
     margin-bottom: ${pxToRem(40)}rem;
   }
@@ -79,6 +80,7 @@ const Arrow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   margin-bottom: ${pxToRem(38)}rem;
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
 `;
