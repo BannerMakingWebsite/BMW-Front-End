@@ -1,17 +1,24 @@
 import styled from "styled-components";
 import { Google } from "../../assets/images";
+import theme from "../../styles/theme";
 
 interface ButtonProps {
   type: "big" | "small" | "googleLogin";
   label?: string;
   refObj?: React.MutableRefObject<HTMLButtonElement>;
+  buttonColor?: string;
 }
 
-const Button = ({ type, label, refObj }: ButtonProps) => {
+const Button = ({ type, label, refObj, buttonColor }: ButtonProps) => {
   return (
     <>
       {type === "small" && (
-        <SmallButton type="submit" disabled={refObj && true} ref={refObj}>
+        <SmallButton
+          type="submit"
+          disabled={refObj && true}
+          ref={refObj}
+          buttonColor={buttonColor}
+        >
           {label}
         </SmallButton>
       )}
@@ -32,13 +39,19 @@ const Button = ({ type, label, refObj }: ButtonProps) => {
 
 export default Button;
 
-const SmallButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.bg1f};
+interface SmallButtonProps {
+  buttonColor: string;
+}
+
+const SmallButton = styled.button<SmallButtonProps>`
+  background-color: ${(props) =>
+    props.buttonColor ? props.buttonColor : theme.colors.bg1f};
 
   width: 12.5rem;
   height: 5rem;
 
-  color: ${({ theme }) => theme.colors.white};
+  color: ${(props) =>
+    props.buttonColor ? theme.colors.black : theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes.title};
 
   border: 0.1px solid ${({ theme }) => theme.colors.grey};
