@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Upload, URL } from "../../../assets/images";
 import Button from "../../button";
 
-function ModalContentsSelectMethod() {
+function ModalContentsSelectImageAddMethod() {
   return (
     <Background>
       <div>
@@ -31,7 +31,7 @@ function ModalContentsSelectMethod() {
   );
 }
 
-export default ModalContentsSelectMethod;
+export default ModalContentsSelectImageAddMethod;
 
 const Background = styled.div`
   display: flex;
