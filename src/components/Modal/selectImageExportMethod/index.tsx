@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Clipboard, JPG, PDF, PNG } from "../../../assets/images";
+import { pxToRem } from "../../../assets/constants/pxToRem";
+import { ModalIcons } from "../../../assets/images";
 import Button from "../../button";
 
 function ModalContentsSelectImageExportMethod() {
@@ -12,19 +13,19 @@ function ModalContentsSelectImageExportMethod() {
       <div>
         <Wrapper>
           <Card>
-            <img alt="JPG-method" src={JPG} />
+            <img alt="JPG-method" src={ModalIcons.JPG} />
             <h1>.jpg 형식</h1>
           </Card>
           <Card>
-            <img alt="PNG-method" src={PNG} />
+            <img alt="PNG-method" src={ModalIcons.PNG} />
             <h1>.png 형식</h1>
           </Card>
           <Card>
-            <img alt="PDF-method" src={PDF} />
+            <img alt="PDF-method" src={ModalIcons.PDF} />
             <h1>.pdf 형식</h1>
           </Card>
           <Card>
-            <img alt="Clipboard-method" src={Clipboard} />
+            <img alt="Clipboard-method" src={ModalIcons.Clipboard} />
             <h1>클립보드 복사</h1>
           </Card>
         </Wrapper>
@@ -43,9 +44,9 @@ const Background = styled.div`
   display: flex;
 
   > div {
-    margin-left: 1.5rem;
+    margin-left: ${pxToRem(25)}rem;
 
-    width: 26.5rem;
+    width: ${pxToRem(424)}rem;
 
     > div:last-of-type {
       display: flex;
@@ -55,15 +56,15 @@ const Background = styled.div`
 `;
 
 const BannerImage = styled.img`
-  width: 40rem;
-  height: 40rem;
+  width: ${pxToRem(640)}rem;
+  height: ${pxToRem(640)}rem;
 
   border-radius: 1.5rem;
   object-fit: cover;
 `;
 
 const Wrapper = styled.div`
-  height: 35rem;
+  height: ${pxToRem(560)}rem;
 
   display: inline-flex;
   flex-flow: column wrap;
@@ -73,12 +74,12 @@ const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.bg3f};
 
   :nth-of-type(2n - 1) {
-    margin-right: 1.5rem;
+    margin-right: ${pxToRem(25)}rem;
   }
-  margin-bottom: 1.5rem;
+  margin-bottom: ${pxToRem(25)}rem;
 
-  width: 12.5rem;
-  height: 12.5rem;
+  width: ${pxToRem(200)}rem;
+  height: ${pxToRem(200)}rem;
 
   display: inline-flex;
   flex-direction: column;

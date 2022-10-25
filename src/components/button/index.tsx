@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Google } from "../../assets/images";
+import { pxToRem } from "../../assets/constants/pxToRem";
+import { ModalIcons } from "../../assets/images";
 import theme from "../../styles/theme";
 
 interface ButtonProps {
@@ -29,7 +30,7 @@ const Button = ({ type, label, refObj, buttonColor }: ButtonProps) => {
       )}
       {type === "googleLogin" && (
         <GoogleWrapper>
-          <img src={Google} alt="google login" />
+          <img src={ModalIcons.Google} alt="google login" />
           구글 계정으로 로그인
         </GoogleWrapper>
       )}
@@ -47,8 +48,8 @@ const SmallButton = styled.button<SmallButtonProps>`
   background-color: ${(props) =>
     props.buttonColor ? props.buttonColor : theme.colors.bg1f};
 
-  width: 12.5rem;
-  height: 5rem;
+  width: ${pxToRem(200)}rem;
+  height: ${pxToRem(80)}rem;
 
   color: ${(props) =>
     props.buttonColor ? theme.colors.black : theme.colors.white};
@@ -65,8 +66,8 @@ const SmallButton = styled.button<SmallButtonProps>`
 const BigButton = styled.button`
   background-color: ${({ theme }) => theme.colors.bg1f};
 
-  width: 39rem;
-  height: 5rem;
+  width: ${pxToRem(624)}rem;
+  height: ${pxToRem(80)}rem;
 
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes.title};
@@ -87,14 +88,14 @@ const BigButton = styled.button`
 const GoogleWrapper = styled.div`
   position: fixed;
 
-  transform: translateY(21rem);
+  transform: translateY(${pxToRem(336)}rem);
 
   background-color: ${({ theme }) => theme.colors.bg1f};
 
-  margin-top: 1.5rem;
+  margin-top: ${pxToRem(24)}rem;
 
-  width: 39rem;
-  height: 5rem;
+  width: ${pxToRem(624)}rem;
+  height: ${pxToRem(80)}rem;
 
   display: flex;
   justify-content: center;
@@ -111,11 +112,11 @@ const GoogleWrapper = styled.div`
   ${({ theme }) => theme.common.hoverEffect}
 
   img {
-    transform: translateY(0.05rem);
+    transform: translateY(${pxToRem(0.8)}rem);
 
-    margin-right: 0.625rem;
+    margin-right: ${pxToRem(8)}rem;
 
-    width: 2.5rem;
-    height: 2.5rem;
+    width: ${pxToRem(40)}rem;
+    height: ${pxToRem(40)}rem;
   }
 `;

@@ -3,6 +3,7 @@ import {
   PrivacyPolicyDiscretion,
   Purpose,
 } from "../../../assets/constants/privacy";
+import { pxToRem } from "../../../assets/constants/pxToRem";
 import Button from "../../button";
 
 function ModalContentsPrivacy() {
@@ -53,9 +54,9 @@ const Background = styled.div`
 
 const TitleWrapper = styled.div`
   margin: 0 auto;
-  margin-bottom: 0.5rem;
+  margin-bottom: ${pxToRem(8)}rem;
 
-  width: 39rem;
+  width: ${pxToRem(624)}rem;
 
   display: flex;
   justify-content: center;
@@ -71,12 +72,12 @@ const TitleWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: ${pxToRem(16)}rem;
+  padding-bottom: ${pxToRem(16)}rem;
   margin: 0 auto;
-  margin-bottom: 1.5rem;
+  margin-bottom: ${pxToRem(25)}rem;
 
-  width: 39rem;
+  width: ${pxToRem(624)}rem;
 
   display: flex;
   justify-content: space-between;
@@ -99,7 +100,7 @@ const ContentWrapper = styled.div`
 `;
 
 const PhraseWrapper = styled.div`
-  margin-bottom: 1.5rem;
+  margin-bottom: ${pxToRem(25)}rem;
 
   display: flex;
   flex-direction: column;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pxToRem } from "../../../assets/constants/pxToRem";
 import Button from "../../button";
 import InputField from "../../input";
 
@@ -22,8 +23,8 @@ const Background = styled.div`
   align-items: flex-end;
 
   > div {
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
+    margin-left: ${pxToRem(12)}rem;
+    margin-right: ${pxToRem(12)}rem;
 
     :first-of-type {
       margin-left: 0;

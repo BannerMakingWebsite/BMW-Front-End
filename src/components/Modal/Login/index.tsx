@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pxToRem } from "../../../assets/constants/pxToRem";
 import Button from "../../button";
 import InputField from "../../input";
 
@@ -34,7 +35,7 @@ const Background = styled.form`
 `;
 
 const ExternalWrapper = styled.div`
-  margin-top: 1.5rem;
+  margin-top: ${pxToRem(25)}rem;
 
   display: flex;
   justify-content: center;
@@ -42,7 +43,7 @@ const ExternalWrapper = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.subTitle};
 
   span {
-    margin-right: 0.625rem;
+    margin-right: ${pxToRem(8)}rem;
   }
 
   strong {

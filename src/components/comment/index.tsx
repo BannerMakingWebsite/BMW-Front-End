@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pxToRem } from "../../assets/constants/pxToRem";
 
 const Comment = () => {
   return (
@@ -29,8 +30,8 @@ const Background = styled.div`
   justify-content: space-between;
 
   > img {
-    width: 5rem;
-    height: 5rem;
+    width: ${pxToRem(80)}rem;
+    height: ${pxToRem(80)}rem;
 
     border-radius: 50%;
     object-fit: cover;
@@ -38,8 +39,8 @@ const Background = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: calc(100% - 6.5rem);
-  height: 12rem;
+  width: calc(100% - ${pxToRem(104)}rem);
+  height: ${pxToRem(192)}rem;
 
   display: flex;
   flex-direction: column;

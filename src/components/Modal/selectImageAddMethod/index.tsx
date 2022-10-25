@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Upload, URL } from "../../../assets/images";
+import { pxToRem } from "../../../assets/constants/pxToRem";
+import { ModalIcons } from "../../../assets/images";
 import Button from "../../button";
 
 function ModalContentsSelectImageAddMethod() {
@@ -8,7 +9,7 @@ function ModalContentsSelectImageAddMethod() {
       <div>
         <Method>
           <div>
-            <img src={URL} />
+            <img src={ModalIcons.URL} />
           </div>
           <div>
             <span>URL로</span>
@@ -18,7 +19,7 @@ function ModalContentsSelectImageAddMethod() {
         <input type="file" id="file" accept="image/*" />
         <Method htmlFor="file">
           <div>
-            <img src={Upload} />
+            <img src={ModalIcons.Upload} />
           </div>
           <div>
             <span>컴퓨터에서</span>
@@ -43,9 +44,9 @@ const Background = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.title};
 
   > div {
-    margin-bottom: 1.5rem;
+    margin-bottom: ${pxToRem(25)}rem;
 
-    width: calc(18.75rem * 2 + 1.5rem);
+    width: calc(${pxToRem(300)}rem * 2 + ${pxToRem(25)}rem);
 
     display: flex;
     justify-content: space-between;
@@ -60,8 +61,8 @@ const Background = styled.div`
 const Method = styled.label`
   background-color: ${({ theme }) => theme.colors.bg3f};
 
-  width: 18.75rem;
-  height: 18.75rem;
+  width: ${pxToRem(300)}rem;
+  height: ${pxToRem(300)}rem;
 
   display: flex;
   flex-direction: column;
@@ -80,8 +81,8 @@ const Method = styled.label`
 
     display: none;
 
-    width: 18.75rem;
-    height: 18.75rem;
+    width: ${pxToRem(300)}rem;
+    height: ${pxToRem(300)}rem;
   }
 
   div {

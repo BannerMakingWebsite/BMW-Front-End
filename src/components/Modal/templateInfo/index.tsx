@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Favorite, Thumb } from "../../../assets/images";
+import { pxToRem } from "../../../assets/constants/pxToRem";
+import { ModalIcons } from "../../../assets/images";
 import { TemplateInfoTypes } from "../../../assets/types/templateInfoType";
 import Button from "../../button";
 import Comment from "../../comment";
@@ -44,14 +45,14 @@ function ModalContentsTemplateInfo({
             <Info>
               <h2>좋아요</h2>
               <div>
-                <img src={Thumb} />
+                <img src={ModalIcons.Thumb} />
                 <h1>{like}</h1>
               </div>
             </Info>
             <Info>
               <h2>즐겨찾기</h2>
               <div>
-                <img src={Favorite} />
+                <img src={ModalIcons.Favorite} />
                 <h1>{favorite}</h1>
               </div>
             </Info>
@@ -76,9 +77,9 @@ const Background = styled.div`
   display: flex;
 
   > div {
-    margin-left: 1.5rem;
+    margin-left: ${pxToRem(25)}rem;
 
-    width: 26.5rem;
+    width: ${pxToRem(424)}rem;
 
     > div:last-of-type {
       display: flex;
@@ -88,15 +89,15 @@ const Background = styled.div`
 `;
 
 const BannerImage = styled.img`
-  width: 40rem;
-  height: 40rem;
+  width: ${pxToRem(640)}rem;
+  height: ${pxToRem(640)}rem;
 
   border-radius: 1.5rem;
   object-fit: cover;
 `;
 
 const Wrapper = styled.div`
-  height: 35rem;
+  height: ${pxToRem(560)}rem;
 
   > div {
     width: 100%;
@@ -119,7 +120,7 @@ const Info = styled.div`
     }
 
     > img {
-      margin-right: 0.5rem;
+      margin-right: ${pxToRem(8)}rem;
 
       transition: filter 0.25s ease;
 
@@ -135,8 +136,8 @@ const Info = styled.div`
   }
 
   h2 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-top: ${pxToRem(8)}rem;
+    margin-bottom: ${pxToRem(8)}rem;
 
     color: ${({ theme }) => theme.colors.grey};
     font-size: ${({ theme }) => theme.fontSizes.subTitle};
@@ -145,10 +146,10 @@ const Info = styled.div`
   }
 
   ul {
-    margin-top: 0.25rem;
+    margin-top: ${pxToRem(8)}rem;
 
     width: 100%;
-    height: 2.667rem;
+    height: ${pxToRem(42.672)}rem;
 
     list-style: none;
 
@@ -157,10 +158,10 @@ const Info = styled.div`
     > li {
       background-color: ${({ theme }) => theme.colors.bg1f};
 
-      padding: 0.5rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      margin-right: 0.5rem;
+      padding: ${pxToRem(8)}rem;
+      padding-left: ${pxToRem(16)}rem;
+      padding-right: ${pxToRem(16)}rem;
+      margin-right: ${pxToRem(8)}rem;
 
       display: inline-flex;
 
