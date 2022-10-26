@@ -15,15 +15,15 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Header />
-        <Sidebar />
         <Background>
           <BrowserRouter>
             <Routes>
               <Route
-                path="/"
+                path="*"
                 element={
                   <>
+                    <Header />
+                    <Sidebar />
                   </>
                 }
               />
