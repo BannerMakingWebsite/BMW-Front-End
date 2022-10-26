@@ -24,7 +24,12 @@ const Button = ({ type, label, refObj, buttonColor }: ButtonProps) => {
         </SmallButton>
       )}
       {type === "big" && (
-        <BigButton type="submit" disabled={refObj && true} ref={refObj}>
+        <BigButton
+          type="submit"
+          disabled={refObj && true}
+          ref={refObj}
+          buttonColor={buttonColor}
+        >
           {label}
         </BigButton>
       )}
@@ -40,11 +45,11 @@ const Button = ({ type, label, refObj, buttonColor }: ButtonProps) => {
 
 export default Button;
 
-interface SmallButtonProps {
+interface ButtonStyleProps {
   buttonColor: string;
 }
 
-const SmallButton = styled.button<SmallButtonProps>`
+const SmallButton = styled.button<ButtonStyleProps>`
   background-color: ${(props) =>
     props.buttonColor ? props.buttonColor : theme.colors.bg1f};
 
@@ -60,16 +65,24 @@ const SmallButton = styled.button<SmallButtonProps>`
   cursor: pointer;
   transition: filter 0.25s ease;
 
-  ${({ theme }) => theme.common.hoverEffect}
+  :disabled {
+    filter: brightness(50%);
+  }
+
+  :enabled {
+    ${({ theme }) => theme.common.hoverEffect}
+  }
 `;
 
-const BigButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.bg1f};
+const BigButton = styled.button<ButtonStyleProps>`
+  background-color: ${(props) =>
+    props.buttonColor ? props.buttonColor : theme.colors.bg1f};
 
   width: ${pxToRem(624)}rem;
   height: ${pxToRem(80)}rem;
 
-  color: ${({ theme }) => theme.colors.white};
+  color: ${(props) =>
+    props.buttonColor ? theme.colors.black : theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes.title};
 
   border: 0.1px solid ${({ theme }) => theme.colors.grey};
