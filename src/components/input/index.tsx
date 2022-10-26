@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { pxToRem } from "../../assets/constants/pxToRem";
 
 interface InputFieldProps {
   type:
@@ -202,14 +203,14 @@ const InputField = ({ type, label, id, changeEvent }: InputFieldProps) => {
 export default InputField;
 
 const CheckboxWrapper = styled.div`
-  margin-bottom: 0.5rem;
+  margin-bottom: ${pxToRem(8)}rem;
 
   font-size: ${({ theme }) => theme.fontSizes.subTitle};
 
   > input {
     transform: translateY(0.1rem);
 
-    margin-right: 0.625rem;
+    margin-right: ${pxToRem(8)}rem;
 
     width: ${({ theme }) => theme.fontSizes.subTitle};
     height: ${({ theme }) => theme.fontSizes.subTitle};
@@ -244,8 +245,8 @@ const NumberInput = styled.div`
 
     padding-right: 1.5rem;
 
-    width: 12.5rem;
-    height: 5rem;
+    width: ${pxToRem(200)}rem;
+    height: ${pxToRem(80)}rem;
 
     color: ${({ theme }) => theme.colors.white};
     font-size: 4rem;
@@ -257,8 +258,8 @@ const NumberInput = styled.div`
   span {
     position: absolute;
 
-    width: 12.5rem;
-    height: calc(100% - 0.5rem);
+    width: ${pxToRem(200)}rem;
+    height: calc(100% - ${pxToRem(8)}rem);
 
     display: flex;
     justify-content: flex-end;
@@ -276,15 +277,15 @@ interface LabelWrapperProps {
 }
 
 const LabelWrapper = styled.label<LabelWrapperProps>`
-  height: 2rem;
+  height: ${pxToRem(32)}rem;
 
-  margin-bottom: 0.625rem;
+  margin-bottom: ${pxToRem(8)}rem;
 
   display: flex;
   align-items: flex-end;
 
   > label {
-    margin-right: 0.625rem;
+    margin-right: ${pxToRem(8)}rem;
 
     width: max-content;
 
@@ -305,10 +306,10 @@ const LabelWrapper = styled.label<LabelWrapperProps>`
 
       @keyframes fadeIn {
         0% {
-          color: #fefefe;
+          color: ${({ theme }) => theme.colors.white};
         }
         100% {
-          color: #ff0000;
+          color: ${({ theme }) => theme.colors.error};
         }
       }
 

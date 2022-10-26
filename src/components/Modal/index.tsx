@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pxToRem } from "../../assets/constants/pxToRem";
 
 interface ModalProps {
   title: string;
@@ -52,7 +53,7 @@ const Background = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background-color: #444444;
+  background-color: ${({ theme }) => theme.colors.bg2f};
 
   width: max-content;
 
@@ -62,20 +63,19 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   position: relative;
 
-  background-color: #555555;
+  background-color: ${({ theme }) => theme.colors.bg3f};
 
   margin: 0;
 
   width: 100%;
-  height: 5.5rem;
+  height: ${pxToRem(88)}rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: #fefefe;
-  font-size: 2rem;
-  font-weight: 400;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.title};
 
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
@@ -91,8 +91,9 @@ const Title = styled.h1`
     cursor: pointer;
   }
 `;
+
 const ContentsWrapper = styled.div`
-  padding: 1.5rem;
+  padding: ${pxToRem(25)}rem;
 `;
 
 export default Modal;

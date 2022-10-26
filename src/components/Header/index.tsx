@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pxToRem } from "../../assets/constants/pxToRem";
 
 function Header() {
   return <Background></Background>;
@@ -6,11 +7,14 @@ function Header() {
 export default Header;
 
 const Background = styled.div`
-  z-index: 900;
-  position: fixed;
-  height: 4rem;
-  width: 100vw;
-  left: 0px;
-  top: 0px;
   background-color: ${({ theme }) => theme.colors.bg5f};
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: ${pxToRem(64)}rem;
+
+  z-index: 900;
 `;

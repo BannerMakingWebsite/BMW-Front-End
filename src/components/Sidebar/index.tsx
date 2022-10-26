@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { pxToRem } from "../../assets/constants/pxToRem";
-import { Icons } from "../../assets/images";
+import { SidebarIcons } from "../../assets/images";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -65,10 +65,10 @@ const IconsWrapper = styled.div`
   padding: ${pxToRem(26)}rem 0;
   width: 100%;
   height: fit-content;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 26px;
 `;
 
 const IconWrapper = styled.div`
@@ -83,7 +83,6 @@ const IconWrapper = styled.div`
   transition: filter 0.25s ease;
   ${({ theme }) => theme.common.hoverEffect}
   transition: 0.2s;
-
   > p {
     margin-top: ${pxToRem(5)}rem;
   }
