@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import Background from "./components/Background";
+import FigureTab from "./components/figureTab";
 import Header from "./components/Header";
+import ImageTab from "./components/imageTab";
 import Modal from "./components/Modal";
 import ModalContentsLogin from "./components/Modal/Login";
 import Sidebar from "./components/Sidebar";
@@ -24,6 +26,7 @@ function App() {
                 path="/"
                 element={
                   <>
+                    <FigureTab/>
                   </>
                 }
               />
