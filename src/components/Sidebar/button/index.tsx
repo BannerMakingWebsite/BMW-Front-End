@@ -21,4 +21,7 @@ const Background = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.subText};
 
   border: none;
+  transition: filter 0.25s ease;
+
+  ${({ theme }) => theme.common.hoverEffect}
 `;
