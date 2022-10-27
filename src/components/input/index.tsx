@@ -205,6 +205,7 @@ export default InputField;
 const CheckboxWrapper = styled.div`
   margin-bottom: ${pxToRem(8)}rem;
 
+  color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes.subTitle};
 
   > input {
@@ -243,13 +244,13 @@ const NumberInput = styled.div`
 
     background-color: transparent;
 
-    padding-right: 1.5rem;
+    padding-right: ${pxToRem(25)}rem;
 
     width: ${pxToRem(200)}rem;
     height: ${pxToRem(80)}rem;
 
     color: ${({ theme }) => theme.colors.white};
-    font-size: 4rem;
+    font-size: ${pxToRem(64)}rem;
 
     border: 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
@@ -325,13 +326,13 @@ interface InputProps {
 const Input = styled.input<InputProps>`
   background-color: ${({ theme }) => theme.colors.bg1f};
 
-  padding-left: 1.5rem;
+  padding-left: ${pxToRem(25)}rem;
   ${(props) =>
     props.isOverlaid ? "padding-right: 9.25rem" : "padding-right: 1.5rem"};
-  margin-bottom: 1.5rem;
+  margin-bottom: ${pxToRem(25)}rem;
 
-  width: 39rem;
-  height: 5rem;
+  width: ${pxToRem(624)}rem;
+  height: ${pxToRem(80)}rem;
 
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes.subTitle};
@@ -347,7 +348,7 @@ const Input = styled.input<InputProps>`
 const Overlay = styled.span`
   position: fixed;
 
-  transform: translateX(-8.25rem) translateY(1.75rem);
+  transform: translateX(-${pxToRem(132)}rem) translateY(${pxToRem(28)}rem);
 
   text-overflow: clip;
   white-space: nowrap;
