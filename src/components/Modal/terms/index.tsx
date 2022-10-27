@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { TermsOfUseDiscretion } from "../../../assets/constants/terms";
-import Button from "../../button";
+import Button from "../button";
 
 function ModalContentsTerms() {
   return (

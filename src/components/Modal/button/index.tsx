@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { pxToRem } from "../../assets/constants/pxToRem";
-import { ModalIcons } from "../../assets/images";
-import theme from "../../styles/theme";
+import { pxToRem } from "../../../assets/constants/pxToRem";
+import { ModalIcons } from "../../../assets/images";
+import theme from "../../../styles/theme";
 
 interface ButtonProps {
   type: "big" | "small" | "googleLogin";
@@ -10,7 +10,7 @@ interface ButtonProps {
   buttonColor?: string;
 }
 
-const Button = ({ type, label, refObj, buttonColor }: ButtonProps) => {
+const ModalButton = ({ type, label, refObj, buttonColor }: ButtonProps) => {
   return (
     <>
       {type === "small" && (
@@ -43,7 +43,7 @@ const Button = ({ type, label, refObj, buttonColor }: ButtonProps) => {
   );
 };
 
-export default Button;
+export default ModalButton;
 
 interface ButtonStyleProps {
   buttonColor: string;

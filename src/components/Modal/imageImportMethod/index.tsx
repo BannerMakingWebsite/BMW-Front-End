@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { ModalIcons } from "../../../assets/images";
-import Button from "../../button";
+import Button from "../button";
 
 function ModalContentsImageImportMethod() {
   return (

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { ModalIcons } from "../../../assets/images";
 import { TemplateInfoTypes } from "../../../assets/types/templateInfoType";
-import Button from "../../button";
+import Button from "../button";
 import Comment from "../../comment";
 
 function ModalContentsViewTemplate({

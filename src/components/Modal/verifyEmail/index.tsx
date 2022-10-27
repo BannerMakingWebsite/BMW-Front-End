@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import Button from "../../button";
-import InputField from "../../input";
+import Button from "../button";
+import ModalInput from "../input";
 
 function ModalContentsVerifyEmail() {
   return (
     <>
       <Background>
-        <InputField type="doubleEmail" id="email" />
+        <ModalInput type="doubleEmail" id="email" />
         <Button type="big" label="확인" />
       </Background>
     </>

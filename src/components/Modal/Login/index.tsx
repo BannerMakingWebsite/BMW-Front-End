@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
-import Button from "../../button";
-import InputField from "../../input";
+import Button from "../button";
+import ModalInput from "../input";
 
 function ModalContentsLogin() {
   return (
     <>
       <Background>
-        <InputField type="big" label="이메일" id="email" />
-        <InputField type="password" label="비밀번호" id="pw" />
-        <InputField type="checkbox" label="아이디 기억" id="remember" />
+        <ModalInput type="big" label="이메일" id="email" />
+        <ModalInput type="password" label="비밀번호" id="pw" />
+        <ModalInput type="checkbox" label="아이디 기억" id="remember" />
         <Button type="big" label="로그인" />
         <Button type="googleLogin" />
         <ExternalWrapper>
