@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { pxToRem } from "../../assets/constants/pxToRem";
 import { ImageIcons } from "../../assets/images";
 
 function FigureTab() {
-  const FigureText = ["원형", "삼각형", "텍스트"];
+  const FigureText = ["사각형", "원형", "삼각형", "텍스트"];
   return (
     <Box>
       <SearchBox>
@@ -12,17 +13,14 @@ function FigureTab() {
           </>
         </SearchFigure>
         <FigureScroll />
-        <FigureBox>
-          <Square />
-          사각형
-        </FigureBox>
         {FigureText.map((F) => {
           return (
-            <FigureBox2>
+            <FigureBox>
               <FigureTexts>{F}</FigureTexts>
-            </FigureBox2>
+            </FigureBox>
           );
         })}
+        <Square />
         <Circle />
         <Triangles src={ImageIcons.Triangle} />
         <Texts src={ImageIcons.Text} />
@@ -34,110 +32,100 @@ function FigureTab() {
 const Box = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #555555;
+  background-color: ${({ theme }) => theme.colors.bg3f};
   position: relative;
 `;
 
 const SearchBox = styled.div`
   position: fixed;
-  top: 4rem;
-  left: 5rem;
-  width: 30.438rem;
-  height: 5.5rem;
-  background-color: #444444;
+  top: ${pxToRem(64)}rem;
+  left: ${pxToRem(80)}rem;
+  width: ${pxToRem(487)}rem;
+  height: ${pxToRem(88)}rem;
+  background-color: ${({ theme }) => theme.colors.bg2f};
 `;
 const SearchFigure = styled.div`
-  width: 27.563rem;
-  height: 2.188rem;
-  border-radius: 1.563rem;
-  background-color: #666666;
-  margin: 1.625rem 0 0 1.438rem;
+  width: ${pxToRem(441)}rem;
+  height: ${pxToRem(35)}rem;
+  border-radius: ${pxToRem(25)}rem;
+  background-color: ${({ theme }) => theme.colors.bg4f};
+  margin: ${pxToRem(26)}rem 0 0 ${pxToRem(23)}rem;
 `;
 const SearchText = styled.input`
-  width: 26.563rem;
-  height: 2.188rem;
-  border-radius: 1.563rem;
+  width: ${pxToRem(425)}rem;
+  height: ${pxToRem(35)}rem;
+  border-radius: ${pxToRem(25)}rem;
   border: none;
-  padding-left: 1rem;
-  padding-right: 1.5rem;
-  background-color: #666666;
-  font-size: 1.25rem;
-  color: #aaaaaa;
+  padding-left: ${pxToRem(16)}rem;
+  padding-right: ${pxToRem(24)}rem;
+  background-color: ${({ theme }) => theme.colors.bg4f};
+  font-size: ${({ theme }) => theme.fontSizes.text};
+  color: ${({ theme }) => theme.colors.grey};
   outline: none;
 `;
 
 const FigureBox = styled.div`
-  width: 25.313rem;
-  height: 6.25rem;
-  background-color: #444444;
-  position: absolute;
-  top: 7.063rem;
-  left: 1.563rem;
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-`;
-const FigureBox2 = styled.div`
-  width: 25.313rem;
-  height: 6.25rem;
-  background-color: #444444;
-  border-radius: 1.563rem;
+  width: ${pxToRem(405)}rem;
+  height: ${pxToRem(100)}rem;
+  background-color: ${({ theme }) => theme.colors.bg2f};
+  border-radius: ${pxToRem(25)}rem;
   position: relative;
-  top: 9.438rem;
-  left: 1.563rem;
-  color: white;
-  font-size: 2rem;
+  top: ${pxToRem(25)}rem;
+  left: ${pxToRem(25)}rem;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.title};
   display: flex;
   align-items: center;
-  margin-top: 1.625rem;
+  margin-top: ${pxToRem(26)}rem;
 `;
 const FigureTexts = styled.div`
   position: relative;
-  left: 6.938rem;
+  left: ${pxToRem(111)}rem;
 `;
 
 const Square = styled.div`
-  width: 4.688rem;
-  height: 4.688rem;
-  background-color: #aaaaaa;
-  margin: 0 20px 0 20px;
+  width: ${pxToRem(75)}rem;;
+  height: ${pxToRem(75)}rem;;
+  background-color: ${({ theme }) => theme.colors.grey};
+  position: absolute;
+  top: ${pxToRem(125)}rem;
+  left: ${pxToRem(43)}rem;
 `;
 const Circle = styled.div`
-  width: 4.688rem;
-  height: 4.688rem;
-  background-color: #aaaaaa;
+  width: ${pxToRem(75)}rem;;
+  height: ${pxToRem(75)}rem;;
+  background-color: ${({ theme }) => theme.colors.grey};
   border-radius: 50%;
   position: absolute;
-  top: 15.688rem;
-  left: 2.688rem;
+  top: ${pxToRem(251)}rem;
+  left: ${pxToRem(43)}rem;
 `;
 const Triangles = styled.img`
   position: absolute;
-  top: 23.75rem;
-  left: 2.688rem;
+  top: ${pxToRem(380)}rem;
+  left: ${pxToRem(43)}rem;
 `;
 const Texts = styled.img`
   position: absolute;
-  top: 32.313rem;
-  left: 3.938rem;
+  top: ${pxToRem(517)}rem;
+  left: ${pxToRem(63)}rem;
 `;
 
 const FigureScroll = styled.div`
   position: absolute;
-  top: 5.5rem;
-  width: 30.438rem;
-  height: 58rem;
-  background-color: #555555;
+  top: ${pxToRem(88)}rem;
+  width: ${pxToRem(487)}rem;
+  height: ${pxToRem(928)}rem;
+  background-color: ${({ theme }) => theme.colors.bg3f};
   overflow: scroll;
   ::-webkit-scrollbar {
-    width: 2rem;
+    width: ${pxToRem(32)}rem;
   }
   ::-webkit-scrollbar-thumb {
     background-color: #777777;
   }
   ::-webkit-scrollbar-track {
-    background-color: #666666;
+    background-color: ${({ theme }) => theme.colors.bg4f};
   }
 `;
 

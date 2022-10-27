@@ -1,5 +1,7 @@
 import styled from "styled-components";
+import { pxToRem } from "../../assets/constants/pxToRem";
 import { ImageIcons } from "../../assets/images";
+
 function ImageTab() {
   return (
     <Box>
@@ -19,62 +21,62 @@ function ImageTab() {
 const Box = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #555555;
+  background-color: ${({ theme }) => theme.colors.bg3f};
   position: relative;
 `;
 
 const SearchBox = styled.div`
   position: fixed;
-  top: 4rem;
-  left: 5rem;
-  width: 30.438rem;
-  height: 9.313rem;
-  background-color: #444444;
+  top: ${pxToRem(64)}rem;
+  left: ${pxToRem(80)}rem;
+  width: ${pxToRem(487)}rem;
+  height: ${pxToRem(149)}rem;
+  background-color: ${({ theme }) => theme.colors.bg2f};
 `;
 const ImageUpload = styled.button`
-  width: 27.563rem;
-  height: 2.188rem;
-  border-radius: 1.563rem;
+  width: ${pxToRem(441)}rem;
+  height: ${pxToRem(35)}rem;
+  border-radius: ${pxToRem(25)}rem;
   border: none;
-  background-color: #666666;
-  margin: 1.625rem 0 0 1.438rem;
-  color: white;
-  font-size: 1.25rem;
+  background-color: ${({ theme }) => theme.colors.bg4f};
+  margin: ${pxToRem(26)}rem 0 0 ${pxToRem(23)}rem;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.text};
 `;
 const SearchImage = styled.input`
-  width: 27.563rem;
-  height: 2.188rem;
-  border-radius: 1.563rem;
+  width: ${pxToRem(441)}rem;
+  height: ${pxToRem(35)}rem;
+  border-radius: ${pxToRem(25)}rem;
   border: none;
-  background-color: #666666;
-  margin: 1.625rem 0 0 1.438rem;
-  font-size: 1.25rem;
-  color: #aaaaaa;
+  background-color: ${({ theme }) => theme.colors.bg4f};
+  margin: ${pxToRem(26)}rem 0 0 ${pxToRem(23)}rem;
+  font-size: ${({ theme }) => theme.fontSizes.text};
+  color: ${({ theme }) => theme.colors.grey};
   outline: none;
-  padding-left: 1.25rem;
+  padding-left: ${pxToRem(25)}rem;
 `;
 
 const ImageScroll = styled.div`
   position: absolute;
-  top: 9.313rem;
-  width: 30.438rem;
-  height: 54.188rem;
-  background-color: #555555;
+  top: ${pxToRem(149)}rem;
+  width: ${pxToRem(487)}rem;
+  height: ${pxToRem(867)}rem;
+  background-color: ${({ theme }) => theme.colors.bg3f};
   overflow: scroll;
   ::-webkit-scrollbar {
-    width: 2rem;
+    width: ${pxToRem(32)}rem;
   }
   ::-webkit-scrollbar-thumb {
     background-color: #777777;
   }
   ::-webkit-scrollbar-track {
-    background-color: #666666;
+    background-color: ${({ theme }) => theme.colors.bg4f};
   }
 `;
 const Temps = styled.img`
-  width: 13.125rem;
-  height: 10.938rem;
-  margin: 0.75rem 0 0 0.75rem;
+  width: ${pxToRem(210)}rem;
+  height: ${pxToRem(175)}rem;
+  margin: ${pxToRem(12)}rem 0 0 ${pxToRem(12)}rem;
 `;
 
 export default ImageTab;
