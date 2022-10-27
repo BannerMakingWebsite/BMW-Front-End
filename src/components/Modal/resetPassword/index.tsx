@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import Button from "../../button";
-import InputField from "../../input";
+import Button from "../button";
+import ModalInput from "../input";
 
 function ModalContentsResetPassword() {
   return (
     <>
       <Background>
-        <InputField type="doublePassword" id="pw" />
+        <ModalInput type="doublePassword" id="pw" />
         <Button type="big" label="재설정" />
       </Background>
     </>

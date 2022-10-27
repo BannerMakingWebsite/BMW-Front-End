@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { pxToRem } from "../../assets/constants/pxToRem";
+import { pxToRem } from "../../../assets/constants/pxToRem";
 
-interface InputFieldProps {
+interface ModalInputProps {
   type:
     | "checkbox"
     | "big"
@@ -16,7 +16,7 @@ interface InputFieldProps {
   changeEvent?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const InputField = ({ type, label, id, changeEvent }: InputFieldProps) => {
+const ModalInput = ({ type, label, id, changeEvent }: ModalInputProps) => {
   const [labelIndex, setLabelIndex] = useState<number>(0);
   const [value, setValue] = useState<string[]>([]);
   const [warning, setWarning] = useState<string>("");
@@ -200,7 +200,7 @@ const InputField = ({ type, label, id, changeEvent }: InputFieldProps) => {
   );
 };
 
-export default InputField;
+export default ModalInput;
 
 const CheckboxWrapper = styled.div`
   margin-bottom: ${pxToRem(8)}rem;

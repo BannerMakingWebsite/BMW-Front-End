@@ -97,3 +97,4 @@ const ContentsWrapper = styled.div`
 `;
 
 export default Modal;
+ 

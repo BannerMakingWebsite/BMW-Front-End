@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styled from "styled-components";
-import Button from "../../button";
-import InputField from "../../input";
+import Button from "../button";
+import ModalInput from "../input";
 
 function ModalContentsRegister() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -9,10 +9,10 @@ function ModalContentsRegister() {
   return (
     <>
       <Background>
-        <InputField type="big" label="닉네임" id="name" />
-        <InputField type="doublePassword" id="pw" />
-        <InputField type="doubleEmail" id="email" />
-        <InputField
+        <ModalInput type="big" label="닉네임" id="name" />
+        <ModalInput type="doublePassword" id="pw" />
+        <ModalInput type="doubleEmail" id="email" />
+        <ModalInput
           type="checkbox"
           label={"BMW의 *개인정보 처리방침*에 동의합니다."}
           id="agree"

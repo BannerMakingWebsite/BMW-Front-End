@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
-import Button from "../../button";
-import InputField from "../../input";
+import Button from "../button";
+import ModalInput from "../input";
 
 function ModalContentsShareTemplate() {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -15,9 +15,9 @@ function ModalContentsShareTemplate() {
           alt="template"
         />
 
-        <InputField type="big" label="템플릿 제목" id="template-title" />
+        <ModalInput type="big" label="템플릿 제목" id="template-title" />
 
-        <InputField
+        <ModalInput
           type="checkbox"
           label={"BMW의 *이용 약관*에 동의합니다."}
           id="agree"

@@ -4,7 +4,7 @@ import {
   Purpose,
 } from "../../../assets/constants/privacy";
 import { pxToRem } from "../../../assets/constants/pxToRem";
-import Button from "../../button";
+import Button from "../button";
 
 function ModalContentsPrivacy() {
   return (
