@@ -3,12 +3,15 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import Background from "./components/Background";
+import EditFigureTab from "./components/Sidebar/EditFigureTab";
+import EditTextTab from "./components/Sidebar/EditTextTab";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import ModalContentsLogin from "./components/Modal/Login";
 import Sidebar from "./components/Sidebar";
 import { GlobalStyle } from "./styles/globalStyle";
 import theme from "./styles/theme";
+import SettingTab from "./components/Sidebar/Setting";
 
 function App() {
   return (
@@ -18,12 +21,22 @@ function App() {
         <Background>
           <BrowserRouter>
             <Routes>
-              <Route
+            <Route
                 path="*"
                 element={
                   <>
                     <Header />
                     <Sidebar />
+                  </>
+                }
+              />
+              <Route
+                path="/setting"
+                element={
+                  <>
+                    <Header />
+                    <Sidebar />
+                    <SettingTab />
                   </>
                 }
               />
