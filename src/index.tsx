@@ -20,26 +20,13 @@ function App() {
         <GlobalStyle />
         <Background>
           <BrowserRouter>
+            <Header />
+            <Sidebar />
             <Routes>
-            <Route
-                path="*"
-                element={
-                  <>
-                    <Header />
-                    <Sidebar />
-                  </>
-                }
-              />
-              <Route
-                path="/setting"
-                element={
-                  <>
-                    <Header />
-                    <Sidebar />
-                    <SettingTab />
-                  </>
-                }
-              />
+              <Route path="*" element={<></>} />
+              <Route path="/setting" element={<SettingTab />} />
+              <Route path="/edit/figure" element={<EditFigureTab />} />
+              <Route path="/edit/text" element={<EditTextTab />} />
             </Routes>
           </BrowserRouter>
         </Background>
