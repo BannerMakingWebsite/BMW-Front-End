@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { pxToRem } from "../../assets/constants/pxToRem";
+import { pxToRem } from "../../../assets/constants/pxToRem";
 
 const Comment = () => {
   return (
