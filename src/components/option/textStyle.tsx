@@ -57,4 +57,6 @@ const Block = styled.div`
   > #line-through {
     text-decoration-line: line-through;
   }
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
 `;

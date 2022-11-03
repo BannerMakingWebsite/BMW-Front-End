@@ -25,6 +25,8 @@ const ColorBox = styled.div`
   width: ${pxToRem(30)}rem;
   height: ${pxToRem(30)}rem;
   background-color: ${({ theme }) => theme.colors.white};
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
 `;
 
 const ColorView = styled.div<{ color?: string }>`
