@@ -29,10 +29,12 @@ const OptionWrapper = styled.div`
     line-height: ${pxToRem(24)}rem;
     color: ${({ theme }) => theme.colors.white};
   }
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
 `;
 
 const IconImg = styled.img`
   margin-right: ${pxToRem(8)}rem;
-  width:${pxToRem(33)}rem;
-  height:${pxToRem(33)}rem;
+  width: ${pxToRem(33)}rem;
+  height: ${pxToRem(33)}rem;
 `;

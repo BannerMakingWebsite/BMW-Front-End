@@ -36,6 +36,7 @@ const TotalWrapper = styled.div<{ width: number }>`
   align-items: center;
   justify-content: space-between;
   padding: 0 ${pxToRem(8)}rem;
+  padding-right: ${pxToRem(24)}rem;
   font-weight: 300;
   font-size: ${pxToRem(16)}rem;
   line-height: ${pxToRem(19)}rem;

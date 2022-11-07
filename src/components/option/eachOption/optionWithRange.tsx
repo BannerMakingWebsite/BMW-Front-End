@@ -50,4 +50,6 @@ const RangeBar = styled.input`
     position: relative;
     top: -${pxToRem(5)}rem;
   }
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
 `;

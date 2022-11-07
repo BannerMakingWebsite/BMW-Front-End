@@ -23,4 +23,6 @@ export default TextAlign;
 
 const Img = styled.img`
   margin-right: ${pxToRem(25)}rem;
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
 `;

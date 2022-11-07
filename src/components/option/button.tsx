@@ -30,4 +30,6 @@ const TotalWrapper = styled.div`
     line-height: ${pxToRem(19)}rem;
     color: ${({ theme }) => theme.colors.white};
   }
+  transition: filter 0.25s ease;
+  ${({ theme }) => theme.common.hoverEffect}
 `;
