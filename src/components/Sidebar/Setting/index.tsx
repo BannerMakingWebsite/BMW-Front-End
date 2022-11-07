@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import * as SetOption from "../../option";
+import Head from "../head";
 
 function SettingTab() {
   return (
     <TotalWrapper>
-      <Head></Head>
+      <Head title="설정" />
       <ContentWrapper>
         <SetOption.Size name="이미지 가로 크기" onChange={() => {}} />
         <SetOption.Size name="이미지 세로 크기" onChange={() => {}} />
@@ -38,12 +39,6 @@ const TotalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Head = styled.div`
-  width: 100%;
-  height: ${pxToRem(88)}rem;
-  background-color: ${({ theme }) => theme.colors.bg2f};
 `;
 
 const ContentWrapper = styled.div`

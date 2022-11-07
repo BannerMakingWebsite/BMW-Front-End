@@ -14,9 +14,6 @@ const MyInfo = () => {
 
   return (
     <>
-      <TitleWrapper>
-        <h1>계정</h1>
-      </TitleWrapper>
       <Wrapper>
         <ImageWrapper pfp={profilePicture}>
           <input
@@ -67,28 +64,13 @@ const MyInfo = () => {
 
 export default MyInfo;
 
-const TitleWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.bg2f};
-
-  padding: ${pxToRem(25)}rem;
-
-  width: ${pxToRem(487)}rem;
-  height: ${pxToRem(88)}rem;
-
-  display: flex;
-  align-items: center;
-
-  > h1 {
-    color: ${({ theme }) => theme.colors.white};
-    font-size: ${({ theme }) => theme.fontSizes.subTitle};
-  }
-`;
-
 interface ImageWrapperProps {
   pfp?: string | ArrayBuffer;
 }
 
 const ImageWrapper = styled.div<ImageWrapperProps>`
+  position: relative;
+
   width: ${pxToRem(150)}rem;
   height: ${pxToRem(150)}rem;
 
@@ -193,7 +175,8 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.bg2f};
 
   padding: ${pxToRem(25)}rem;
-  margin: ${pxToRem(25)}rem;
+
+  width: calc(100% - ${pxToRem(50)}rem);
 
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { pxToRem } from "../../assets/constants/pxToRem";
-import SidebarButton from "../Sidebar/button";
+import { pxToRem } from "../../../assets/constants/pxToRem";
+import SidebarButton from "../button";
 
 function LoginTab() {
   return (
