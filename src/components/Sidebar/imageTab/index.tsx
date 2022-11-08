@@ -1,23 +1,18 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import Collection from "../../collection";
-import MyInfo from "../../myInfo";
 import Head from "../head";
 
-function MyPageTab() {
+function ImageTab() {
   return (
     <Background>
-      <Head type="title" title="계정" />
+      <Head type="inputButton" label="이미지 업로드" />
       <ContentWrapper>
-        <MyInfo />
-        <Collection title="내가 공유한 템플릿" />
-        <Collection title="최근에 다운로드한 템플릿" />
+        <Collection title="업로드 한 이미지" />
       </ContentWrapper>
     </Background>
   );
 }
-
-export default MyPageTab;
 
 const Background = styled.div`
   position: fixed;
@@ -27,8 +22,6 @@ const Background = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  padding-bottom: ${pxToRem(24)}rem;
-
   width: ${pxToRem(487)}rem;
   height: calc(100% - ${pxToRem(64)}rem);
 
@@ -39,10 +32,8 @@ const ContentWrapper = styled.div`
   overflow-y: scroll;
 
   > div {
-    margin-bottom: ${pxToRem(25)}rem;
-
-    :first-of-type {
-      margin-top: ${pxToRem(25)}rem;
-    }
+    margin-top: ${pxToRem(25)}rem;
   }
 `;
+
+export default ImageTab;

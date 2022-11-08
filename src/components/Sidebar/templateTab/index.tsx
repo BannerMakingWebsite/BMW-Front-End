@@ -1,23 +1,22 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import Collection from "../../collection";
-import MyInfo from "../../myInfo";
 import Head from "../head";
 
-function MyPageTab() {
+function TemplateTab() {
   return (
     <Background>
-      <Head type="title" title="계정" />
+      <Head type="input" />
       <ContentWrapper>
-        <MyInfo />
-        <Collection title="내가 공유한 템플릿" />
-        <Collection title="최근에 다운로드한 템플릿" />
+        <Collection title="내 즐겨찾기" />
+        <Collection title="인기 템플릿" />
+        <Collection title="최근에 업로드된 템플릿" />
       </ContentWrapper>
     </Background>
   );
 }
 
-export default MyPageTab;
+export default TemplateTab;
 
 const Background = styled.div`
   position: fixed;
@@ -39,10 +38,6 @@ const ContentWrapper = styled.div`
   overflow-y: scroll;
 
   > div {
-    margin-bottom: ${pxToRem(25)}rem;
-
-    :first-of-type {
-      margin-top: ${pxToRem(25)}rem;
-    }
+    margin-top: ${pxToRem(25)}rem;
   }
 `;

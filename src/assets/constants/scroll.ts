@@ -2,7 +2,7 @@ export const scrollNext = (refObj: React.MutableRefObject<HTMLDivElement>) => {
   const sum: number =
     refObj.current.scrollLeft -
     (refObj.current.scrollWidth - refObj.current.clientWidth);
-  if (sum < 2 && sum > -2)
+  if (sum < 3 && sum > -3)
     refObj.current.scrollTo({
       top: 0,
       left: 0,
