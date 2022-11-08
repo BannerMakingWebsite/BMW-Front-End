@@ -53,6 +53,8 @@ const TitleWrapper = styled.div`
     color: ${({ theme }) => theme.colors.white};
     font-size: ${({ theme }) => theme.fontSizes.description};
 
+    transition: filter 0.25s ease;
+
     ${({ theme }) => theme.common.hoverEffect}
   }
 `;
