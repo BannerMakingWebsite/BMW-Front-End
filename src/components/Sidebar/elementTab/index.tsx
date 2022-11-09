@@ -2,8 +2,32 @@ import styled from "styled-components";
 import { pxToRem } from "../../assets/constants/pxToRem";
 import { ImageIcons } from "../../assets/images";
 
-function FigureTab() {
-  const FigureText = ["사각형", "원형", "삼각형", "텍스트"];
+function ElementTab() {
+  const FigureText = [
+    <Circle>
+      <div className="figuretext">이진형 1</div>
+    </Circle>,
+    <Circle>
+      <div className="figuretext">이진형 2</div>
+    </Circle>,
+    <Circle>
+      <div className="figuretext">이진형 3</div>
+    </Circle>,
+    <Square>
+      <div className="figuretext">사각형 1</div>
+    </Square>,
+    <>
+      <Triangles src={ImageIcons.Triangle} />
+      <div className="figureimg">삼각형 1</div>
+    </>,
+    <Circle>
+      <div className="figuretext">원형 1</div>
+    </Circle>,
+    <>
+      <Texts src={ImageIcons.Text} />
+      <div className="figureimg">안녕</div>
+    </>,
+  ];
   return (
     <Box>
       <SearchBox>
@@ -12,18 +36,15 @@ function FigureTab() {
             <SearchText placeholder="검색" />
           </>
         </SearchFigure>
-        <FigureScroll />
-        {FigureText.map((F) => {
-          return (
-            <FigureBox>
-              <FigureTexts>{F}</FigureTexts>
-            </FigureBox>
-          );
-        })}
-        <Square />
-        <Circle />
-        <Triangles src={ImageIcons.Triangle} />
-        <Texts src={ImageIcons.Text} />
+        <FigureForm>
+          {FigureText.map((F) => {
+            return (
+              <FigureBox>
+                <FigureTexts>{F}</FigureTexts>
+              </FigureBox>
+            );
+          })}
+        </FigureForm>
       </SearchBox>
     </Box>
   );
@@ -64,13 +85,19 @@ const SearchText = styled.input`
   outline: none;
 `;
 
+const FigureForm = styled.div`
+  position: absolute;
+  top: ${pxToRem(88)}rem;
+  width: ${pxToRem(487)}rem;
+  height: ${pxToRem(927)}rem;
+  border-right: ${pxToRem(32)}rem solid ${({ theme }) => theme.colors.bg4f};
+`;
 const FigureBox = styled.div`
   width: ${pxToRem(405)}rem;
   height: ${pxToRem(100)}rem;
   background-color: ${({ theme }) => theme.colors.bg2f};
   border-radius: ${pxToRem(25)}rem;
   position: relative;
-  top: ${pxToRem(25)}rem;
   left: ${pxToRem(25)}rem;
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes.title};
@@ -80,53 +107,37 @@ const FigureBox = styled.div`
 `;
 const FigureTexts = styled.div`
   position: relative;
-  left: ${pxToRem(111)}rem;
+  left: ${pxToRem(16)}rem;
+  .figuretext {
+    position: relative;
+    left: ${pxToRem(95)}rem;
+    top: ${pxToRem(13)}rem;
+    width: ${pxToRem(130)}rem;
+  }
+  .figureimg {
+    position: relative;
+    left: ${pxToRem(95)}rem;
+  }
 `;
-
 const Square = styled.div`
-  width: ${pxToRem(75)}rem;;
-  height: ${pxToRem(75)}rem;;
+  width: ${pxToRem(75)}rem;
+  height: ${pxToRem(75)}rem;
   background-color: ${({ theme }) => theme.colors.grey};
-  position: absolute;
-  top: ${pxToRem(125)}rem;
-  left: ${pxToRem(43)}rem;
 `;
 const Circle = styled.div`
-  width: ${pxToRem(75)}rem;;
-  height: ${pxToRem(75)}rem;;
+  width: ${pxToRem(75)}rem;
+  height: ${pxToRem(75)}rem;
   background-color: ${({ theme }) => theme.colors.grey};
   border-radius: 50%;
-  position: absolute;
-  top: ${pxToRem(251)}rem;
-  left: ${pxToRem(43)}rem;
 `;
 const Triangles = styled.img`
   position: absolute;
-  top: ${pxToRem(380)}rem;
-  left: ${pxToRem(43)}rem;
+  right: ${pxToRem(50)}rem;
+  top: ${pxToRem(-13)}rem;
 `;
 const Texts = styled.img`
   position: absolute;
-  top: ${pxToRem(517)}rem;
-  left: ${pxToRem(63)}rem;
+  right: ${pxToRem(8)}rem;
 `;
 
-const FigureScroll = styled.div`
-  position: absolute;
-  top: ${pxToRem(88)}rem;
-  width: ${pxToRem(487)}rem;
-  height: ${pxToRem(928)}rem;
-  background-color: ${({ theme }) => theme.colors.bg3f};
-  overflow: scroll;
-  ::-webkit-scrollbar {
-    width: ${pxToRem(32)}rem;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #777777;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: ${({ theme }) => theme.colors.bg4f};
-  }
-`;
-
-export default FigureTab;
+export default ElementTab;
