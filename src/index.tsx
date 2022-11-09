@@ -12,26 +12,33 @@ import Sidebar from "./components/Sidebar";
 import { GlobalStyle } from "./styles/globalStyle";
 import theme from "./styles/theme";
 import SettingTab from "./components/Sidebar/Setting";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { RecoilRoot } from "recoil";
+import Board from "./components/board";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Background>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
           <BrowserRouter>
-            <Header />
-            <Sidebar />
-            <Routes>
-              <Route path="*" element={<></>} />
-              <Route path="/setting" element={<SettingTab />} />
-              <Route path="/edit/figure" element={<EditFigureTab />} />
-              <Route path="/edit/text" element={<EditTextTab />} />
-            </Routes>
+            <Background>
+              <Header />
+              <Sidebar />
+              <Board width={1920} height={1080} />
+              <Routes>
+                <Route element={<></>} />
+                <Route path="/setting" element={<SettingTab />} />
+                <Route path="/edit/figure" element={<EditFigureTab />} />
+                <Route path="/edit/text" element={<EditTextTab />} />
+              </Routes>
+            </Background>
           </BrowserRouter>
-        </Background>
-      </ThemeProvider>
-    </>
+        </ThemeProvider>
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 }
 
