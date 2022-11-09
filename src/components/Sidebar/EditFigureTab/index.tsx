@@ -20,12 +20,14 @@ export default EditFigureTab;
 
 const TotalWrapper = styled.div`
   position: fixed;
+  left: 5rem;
+  z-index: 100;
   width: ${pxToRem(487)}rem;
   height: calc(100% - ${pxToRem(64)}rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: ${pxToRem(24)}rem;
+  background-color: ${({ theme }) => theme.colors.bg3f};
 `;
 
 const Head = styled.div`
