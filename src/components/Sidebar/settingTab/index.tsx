@@ -44,12 +44,6 @@ const TotalWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.bg3f};
 `;
 
-const Head = styled.div`
-  width: 100%;
-  height: ${pxToRem(88)}rem;
-  background-color: ${({ theme }) => theme.colors.bg2f};
-`;
-
 const ContentWrapper = styled.div`
   padding-bottom: ${pxToRem(24)}rem;
 
