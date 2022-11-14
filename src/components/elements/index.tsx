@@ -11,12 +11,15 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { FigureDataType, TextDataType } from "../../assets/types/elementTypes";
-import ElementListState, { CurrentElementState } from "../../recoilState";
+import ElementListState, {
+  CurrentElementState,
+} from "../../atoms/elementState";
 
 interface Props {
   children: ReactElement;
   props: {
     id: string;
+    type: string;
     width: number;
     height: number;
     posX: number;
@@ -26,31 +29,45 @@ interface Props {
 
 function ElementWrapper({ children, props }: Props) {
   const [elementList, setElementList] = useRecoilState(ElementListState);
-  const [curElement, setCurElement] = useRecoilState(CurrentElementState);
-  const [{ x, y }, setPosition] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [{ width, height }, setConfig] = useState({
-    width: 100,
-    height: 100,
-  });
+  const [curElementId, setCurElement] = useRecoilState(CurrentElementState);
+  const x = props.posX;
+  const y = props.posY;
+  const height = props.height;
+  const width = props.width;
+  const setConfig = (configprops: {
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+  }) => {
+    setElementList(
+      elementList.map((value) =>
+        value.id == props.id
+          ? {
+              ...value,
+              width: configprops.width,
+              height: configprops.height,
+              posX: configprops.x,
+              posY: configprops.y,
+            }
+          : value
+      )
+    );
+  };
   const [isFocus, setFocus] = useState(false);
   const navigate = useNavigate();
 
   const MAX_SIZE = 10;
 
-  useEffect(() => {
-    console.log(width);
-  }, [width]);
-
   const onMouseDown = (clickEvent: React.MouseEvent<Element, MouseEvent>) => {
     const mouseMoveHandler = (moveEvent: MouseEvent) => {
       const deltaX = moveEvent.clientX - clickEvent.clientX;
       const deltaY = moveEvent.clientY - clickEvent.clientY;
-      setPosition({
+      setConfig({
         x: x + deltaX,
         y: y + deltaY,
+        width,
+        height,
       });
     };
     const mouseUpHandler = () => {
@@ -68,12 +85,10 @@ function ElementWrapper({ children, props }: Props) {
       const deltaX = moveEvent.clientX - clickEvent.clientX;
       const deltaY = moveEvent.clientY - clickEvent.clientY;
       setConfig({
-        width: width - deltaX > MAX_SIZE ? width - deltaX : MAX_SIZE,
-        height: height - deltaY > MAX_SIZE ? height - deltaY : MAX_SIZE,
-      });
-      setPosition({
         x: width - deltaX > MAX_SIZE ? x + deltaX : x + width - MAX_SIZE,
         y: height - deltaY > MAX_SIZE ? y + deltaY : y + height - MAX_SIZE,
+        width: width - deltaX > MAX_SIZE ? width - deltaX : MAX_SIZE,
+        height: height - deltaY > MAX_SIZE ? height - deltaY : MAX_SIZE,
       });
     };
     const mouseUpHandler = () => {
@@ -93,12 +108,10 @@ function ElementWrapper({ children, props }: Props) {
       const deltaX = moveEvent.clientX - clickEvent.clientX;
       const deltaY = moveEvent.clientY - clickEvent.clientY;
       setConfig({
-        width: width + deltaX > MAX_SIZE ? width + deltaX : MAX_SIZE,
-        height: height - deltaY > MAX_SIZE ? height - deltaY : MAX_SIZE,
-      });
-      setPosition({
         x,
         y: height - deltaY > MAX_SIZE ? y + deltaY : y + height - MAX_SIZE,
+        width: width + deltaX > MAX_SIZE ? width + deltaX : MAX_SIZE,
+        height: height - deltaY > MAX_SIZE ? height - deltaY : MAX_SIZE,
       });
     };
     const mouseUpHandler = () => {
@@ -119,8 +132,6 @@ function ElementWrapper({ children, props }: Props) {
       setConfig({
         width: width - deltaX > MAX_SIZE ? width - deltaX : MAX_SIZE,
         height: height + deltaY > MAX_SIZE ? height + deltaY : MAX_SIZE,
-      });
-      setPosition({
         x: width - deltaX > MAX_SIZE ? x + deltaX : x + width - MAX_SIZE,
         y,
       });
@@ -143,6 +154,8 @@ function ElementWrapper({ children, props }: Props) {
       setConfig({
         width: width + deltaX > MAX_SIZE ? width + deltaX : MAX_SIZE,
         height: height + deltaY > MAX_SIZE ? height + deltaY : MAX_SIZE,
+        x,
+        y,
       });
     };
     const mouseUpHandler = () => {
@@ -167,9 +180,9 @@ function ElementWrapper({ children, props }: Props) {
         onMouseDown={(e) => {
           onMouseDown(e);
           setFocus(true);
-          setCurElement(elementList.find((value) => value.id == props.id));
-          console.log(elementList.find((value) => value.id == props.id));
-          navigate("/edit/figure");
+          setCurElement(props.id);
+          console.log();
+          navigate(props.type == "text" ? "/edit/text" : "/edit/figure");
         }}
       >
         {isFocus && (

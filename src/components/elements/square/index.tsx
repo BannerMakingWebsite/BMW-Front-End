@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ElementWrapper from "..";
+import { pxToRem } from "../../../assets/constants/pxToRem";
 import { FigureDataType } from "../../../assets/types/elementTypes";
 
 function Square({ width, height, posX, posY, ...props }: FigureDataType) {
@@ -10,8 +11,9 @@ function Square({ width, height, posX, posY, ...props }: FigureDataType) {
     posY,
   };
   const id = props.id;
+  const type = props.type;
   return (
-    <ElementWrapper props={{...SizeProps,id}}>
+    <ElementWrapper props={{ ...SizeProps, id,type  }}>
       <Wrapper {...props}></Wrapper>
     </ElementWrapper>
   );
@@ -19,8 +21,18 @@ function Square({ width, height, posX, posY, ...props }: FigureDataType) {
 
 export default Square;
 
-const Wrapper = styled.div<{ color: string }>`
+const Wrapper = styled.div<{
+  color: string;
+  borderColor: string;
+  opacity: number;
+  shadowColor: string;
+}>`
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.color};
+  ${(props) =>
+    props.borderColor ? "border: 1px solid " + props.borderColor : ""};
+  opacity: ${(props) => props.opacity / 100};
+  box-shadow: ${pxToRem(1)}rem ${pxToRem(1)}rem ${pxToRem(1)}rem
+    ${(props) => props.shadowColor};
 `;

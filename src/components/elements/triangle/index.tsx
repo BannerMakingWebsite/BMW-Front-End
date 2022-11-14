@@ -10,23 +10,12 @@ function Triangle({ width, height, posX, posY, ...props }: FigureDataType) {
     posX,
     posY,
   };
+
   const id = props.id;
+  const type = props.type;
   const elementRef = useRef(null);
-  const [{ twidth, theight }, setOffset] = useState({
-    twidth: 0,
-    theight: 0,
-  });
-  useEffect(() => {
-    if (elementRef.current) {
-      setOffset({
-        twidth: elementRef.current.offsetWidth,
-        theight: elementRef.current.offsetHeight,
-      });
-    }
-    console.log(width, height);
-  }, [elementRef.current]);
   return (
-    <ElementWrapper props={{ ...SizeProps, id }}>
+    <ElementWrapper props={{ ...SizeProps, id, type }}>
       <TryComponent {...props}></TryComponent>
     </ElementWrapper>
   );
