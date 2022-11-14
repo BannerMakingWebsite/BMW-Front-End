@@ -2,13 +2,14 @@ import CommonOptionWrapper from "./wrappers/commonOptionWrapper";
 import OptionWithColor from "./eachOption/optionWithColor";
 
 interface Props {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   name: string;
+  value?: string;
 }
-function ColorSet({ name, onChange }: Props) {
+function ColorSet({ name, onChange, value }: Props) {
   return (
     <CommonOptionWrapper name={name}>
-      <OptionWithColor onChange={onChange} />
+      <OptionWithColor onChange={onChange} value={value} />
     </CommonOptionWrapper>
   );
 }
