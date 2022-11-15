@@ -14,9 +14,16 @@ interface ModalInputProps {
   label?: string;
   id: string;
   changeEvent?: React.ChangeEventHandler<HTMLInputElement>;
+  onClick?: () => void;
 }
 
-const ModalInput = ({ type, label, id, changeEvent }: ModalInputProps) => {
+const ModalInput = ({
+  type,
+  label,
+  id,
+  changeEvent,
+  onClick,
+}: ModalInputProps) => {
   const [labelIndex, setLabelIndex] = useState<number>(0);
   const [value, setValue] = useState<string[]>([]);
   const [warning, setWarning] = useState<string>("");
@@ -31,7 +38,7 @@ const ModalInput = ({ type, label, id, changeEvent }: ModalInputProps) => {
             (label.match(/\*/g) || []).length === 2 ? (
               <>
                 {label.split("*")[0]}
-                <strong>{label.split("*")[1]}</strong>
+                <strong onClick={() => onClick()}>{label.split("*")[1]}</strong>
                 {label.split("*")[2]}
               </>
             ) : (

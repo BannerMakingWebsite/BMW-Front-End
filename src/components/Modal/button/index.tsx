@@ -8,9 +8,16 @@ interface ButtonProps {
   label?: string;
   refObj?: React.MutableRefObject<HTMLButtonElement>;
   buttonColor?: string;
+  onClick?: () => void;
 }
 
-const ModalButton = ({ type, label, refObj, buttonColor }: ButtonProps) => {
+const ModalButton = ({
+  type,
+  label,
+  refObj,
+  buttonColor,
+  onClick,
+}: ButtonProps) => {
   return (
     <>
       {type === "small" && (
@@ -19,6 +26,7 @@ const ModalButton = ({ type, label, refObj, buttonColor }: ButtonProps) => {
           disabled={refObj && true}
           ref={refObj}
           buttonColor={buttonColor}
+          onClick={() => onClick()}
         >
           {label}
         </SmallButton>
@@ -29,6 +37,7 @@ const ModalButton = ({ type, label, refObj, buttonColor }: ButtonProps) => {
           disabled={refObj && true}
           ref={refObj}
           buttonColor={buttonColor}
+          onClick={() => onClick()}
         >
           {label}
         </BigButton>

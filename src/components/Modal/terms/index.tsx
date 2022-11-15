@@ -1,9 +1,14 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { TermsOfUseDiscretion } from "../../../assets/constants/terms";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
+import ModalContentsShareTemplate from "../shareTemplate";
 
 function ModalContentsTerms() {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   return (
     <>
       <Background>
@@ -29,7 +34,16 @@ function ModalContentsTerms() {
           <p>{TermsOfUseDiscretion[8]}</p>
           <p>{TermsOfUseDiscretion[9]}</p>
         </PhraseWrapper>
-        <Button type="big" label="확인" />
+        <Button
+          type="big"
+          label="돌아가기"
+          onClick={() => {
+            setModalState({
+              title: "템플릿 공유",
+              modalContents: <ModalContentsShareTemplate />,
+            });
+          }}
+        />
       </Background>
     </>
   );
