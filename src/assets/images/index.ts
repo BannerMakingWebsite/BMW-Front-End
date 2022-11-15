@@ -3,3 +3,4 @@ export * as SidebarIcons from "./sidebar";
 export * as FigureIcons from "./figure";
 export * as OptionIcons from "./option";
 export * as MyPageIcons from "./myPage";
+export * as HeaderIcons from "./header";
