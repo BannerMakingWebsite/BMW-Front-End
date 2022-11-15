@@ -5,7 +5,6 @@ export interface FigureDataType {
   height: number;
   posX: number;
   posY: number;
-  sequence: number;
   flipX: boolean;
   flipY: boolean;
   opacity: number;
@@ -14,7 +13,7 @@ export interface FigureDataType {
   shadowColor: string;
 }
 
-type TextStyleType = "underline" | "line-through" | "italic" | "bold" | "unset";
+export type TextStyleType = ("underline" | "line-through" | "italic" | "bold" | "unset")[];
 
 export interface TextDataType {
   id: string;
@@ -23,7 +22,6 @@ export interface TextDataType {
   height: number;
   posX: number;
   posY: number;
-  sequence: number;
   flipY: boolean;
   flipX: boolean;
   opacity: number;

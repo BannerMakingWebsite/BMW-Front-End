@@ -4,12 +4,13 @@ import RangeOptionWrapper from "./wrappers/rangeOptionWrapper";
 interface Props {
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: number;
 }
 
-function OpacityOption({ name, onChange }: Props) {
+function OpacityOption({ name, onChange,value }: Props) {
   return (
     <RangeOptionWrapper name={name}>
-      <OptionWithRange onChange={onChange} />
+      <OptionWithRange onChange={onChange} value={value} />
     </RangeOptionWrapper>
   );
 }

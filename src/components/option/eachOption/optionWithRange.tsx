@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: number;
 }
 
-function OptionWithRange({ onChange }: Props) {
-  const [value, setValue] = useState("0");
+function OptionWithRange({ onChange, value }: Props) {
+  useEffect(() => {
+    console.log(value);
+  }, [value]);
   return (
     <>
       <RangeBar
@@ -17,7 +20,6 @@ function OptionWithRange({ onChange }: Props) {
         step={0}
         value={value}
         onChange={(e) => {
-          setValue(e.currentTarget.value);
           onChange(e);
         }}
       />

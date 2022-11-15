@@ -17,7 +17,6 @@ function OptionWithDropdown<T extends string>({
   width,
   value,
 }: Props<T>) {
-  const [Item, setItem] = useState<T | string>(value ? value : "");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <OutsideClickHandler
@@ -31,15 +30,15 @@ function OptionWithDropdown<T extends string>({
           setIsOpen(!isOpen);
         }}
       >
-        <p>{Item}</p>
+        <p>{value}</p>
         <DropDownArrow isOpen={isOpen} src={DropArrow} alt="" />
         {isOpen && (
           <DropList>
             {items.map(
-              (value) =>
-                value != Item && (
-                  <div onClick={() => setItem(value)}>
-                    <p>{value}</p>
+              (val) =>
+                val != value && (
+                  <div onClick={() => onChange(val)}>
+                    <p>{val}</p>
                   </div>
                 )
             )}
