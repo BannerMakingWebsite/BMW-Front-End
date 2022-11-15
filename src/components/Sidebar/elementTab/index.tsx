@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { pxToRem } from "../../assets/constants/pxToRem";
-import { ImageIcons } from "../../assets/images";
+import { pxToRem } from "../../../assets/constants/pxToRem";
 
 function ElementTab() {
   const FigureText = [
@@ -16,17 +15,15 @@ function ElementTab() {
     <Square>
       <div className="figuretext">사각형 1</div>
     </Square>,
-    <>
-      <Triangles src={ImageIcons.Triangle} />
+    <Triangles>
       <div className="figureimg">삼각형 1</div>
-    </>,
+    </Triangles>,
     <Circle>
       <div className="figuretext">원형 1</div>
     </Circle>,
-    <>
-      <Texts src={ImageIcons.Text} />
+    <Texts>
       <div className="figureimg">안녕</div>
-    </>,
+    </Texts>,
   ];
   return (
     <Box>
@@ -130,12 +127,12 @@ const Circle = styled.div`
   background-color: ${({ theme }) => theme.colors.grey};
   border-radius: 50%;
 `;
-const Triangles = styled.img`
+const Triangles = styled.div`
   position: absolute;
   right: ${pxToRem(50)}rem;
   top: ${pxToRem(-13)}rem;
 `;
-const Texts = styled.img`
+const Texts = styled.div`
   position: absolute;
   right: ${pxToRem(8)}rem;
 `;

@@ -33,10 +33,19 @@ function FigureTab() {
 }
 
 const Background = styled.div`
+  background-color: ${({ theme }) => theme.colors.bg3f};
+
   position: fixed;
+  left: 5rem;
 
   width: ${pxToRem(487)}rem;
   height: calc(100% - ${pxToRem(64)}rem);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 100;
 `;
 
 const ContentWrapper = styled.div`

@@ -5,6 +5,7 @@ import ModalInput from "../input";
 import { useRecoilState } from "recoil";
 import { modalStateAtom } from "../../../atoms/modalState";
 import ModalContentsRegister from "../register";
+import ModalContentsVerifyEmail from "../verifyEmail";
 
 function ModalContentsLogin() {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
@@ -31,7 +32,16 @@ function ModalContentsLogin() {
           </strong>
         </ExternalWrapper>
         <ExternalWrapper>
-          <strong>비밀번호를 잊으셨나요?</strong>
+          <strong
+            onClick={() => {
+              setModalState({
+                title: "비밀번호 재설정",
+                modalContents: <ModalContentsVerifyEmail />,
+              });
+            }}
+          >
+            비밀번호를 잊으셨나요?
+          </strong>
         </ExternalWrapper>
       </Background>
     </>

@@ -1,25 +1,40 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../assets/constants/pxToRem";
+import { modalStateAtom } from "../../atoms/modalState";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   title: string;
-  contents: JSX.Element;
+  children: JSX.Element;
 }
 
-function Modal({ title, contents }: ModalProps) {
-  return (
+function Modal({ title, children }: ModalProps) {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
+  return createPortal(
     <>
       <Filter />
       <Background>
         <Wrapper>
           <Title>
             {title}
-            <span>⨉</span>
+            <span
+              onClick={() =>
+                setModalState({
+                  title: "",
+                  modalContents: null,
+                })
+              }
+            >
+              ⨉
+            </span>
           </Title>
-          <ContentsWrapper>{contents}</ContentsWrapper>
+          <ContentsWrapper>{children}</ContentsWrapper>
         </Wrapper>
       </Background>
-    </>
+    </>,
+    document.getElementById("modal")
   );
 }
 
@@ -97,4 +112,3 @@ const ContentsWrapper = styled.div`
 `;
 
 export default Modal;
- 

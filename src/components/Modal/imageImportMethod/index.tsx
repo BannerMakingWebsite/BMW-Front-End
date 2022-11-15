@@ -1,13 +1,25 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { ModalIcons } from "../../../assets/images";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
+import ModalContentsInsertURL from "../insertURL";
 
 function ModalContentsImageImportMethod() {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   return (
     <Background>
       <div>
-        <Method>
+        <Method
+          onClick={() =>
+            setModalState({
+              title: "URL로 이미지 업로드",
+              modalContents: <ModalContentsInsertURL />,
+            })
+          }
+        >
           <div>
             <img src={ModalIcons.URL} />
           </div>
@@ -27,7 +39,16 @@ function ModalContentsImageImportMethod() {
           </div>
         </Method>
       </div>
-      <Button type="big" label="취소" />
+      <Button
+        type="big"
+        label="취소"
+        onClick={() =>
+          setModalState({
+            title: "",
+            modalContents: null,
+          })
+        }
+      />
     </Background>
   );
 }

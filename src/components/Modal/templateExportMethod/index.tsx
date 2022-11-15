@@ -1,9 +1,13 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { ModalIcons } from "../../../assets/images";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
 
-function ModalContentsImageExportMethod() {
+function ModalContentsTemplateExportMethod() {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   return (
     <Background>
       <BannerImage
@@ -30,7 +34,16 @@ function ModalContentsImageExportMethod() {
           </Card>
         </Wrapper>
         <div>
-          <Button type="small" label="취소" />
+          <Button
+            type="small"
+            label="취소"
+            onClick={() =>
+              setModalState({
+                title: "",
+                modalContents: null,
+              })
+            }
+          />
           <Button type="small" label="저장" buttonColor="white" />
         </div>
       </div>
@@ -38,7 +51,7 @@ function ModalContentsImageExportMethod() {
   );
 }
 
-export default ModalContentsImageExportMethod;
+export default ModalContentsTemplateExportMethod;
 
 const Background = styled.div`
   display: flex;

@@ -1,10 +1,16 @@
 import { useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../assets/constants/pxToRem";
 import { readFile } from "../../assets/constants/readFile";
 import { MyPageIcons } from "../../assets/images";
+import { modalStateAtom } from "../../atoms/modalState";
+import ModalContentsResetPassword from "../Modal/resetPassword";
+import ModalContentsVerifyEmail from "../Modal/verifyEmail";
 
 const MyInfo = () => {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   const fileRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
 
@@ -55,8 +61,26 @@ const MyInfo = () => {
             }}
           />
         </NameWrapper>
-        <span>비밀번호 변경</span>
-        <span>회원 탈퇴</span>
+        <span
+          onClick={() =>
+            setModalState({
+              title: "비밀번호 변경",
+              modalContents: <ModalContentsVerifyEmail />,
+            })
+          }
+        >
+          비밀번호 변경
+        </span>
+        <span
+          onClick={() =>
+            setModalState({
+              title: "회원 탈퇴",
+              modalContents: <ModalContentsVerifyEmail />,
+            })
+          }
+        >
+          회원 탈퇴
+        </span>
       </Wrapper>
     </>
   );

@@ -3,10 +3,11 @@ import { pxToRem } from "../../../assets/constants/pxToRem";
 
 interface ButtonProps {
   label: string;
+  onClick?: () => void;
 }
 
-const SidebarButton = ({ label }: ButtonProps) => {
-  return <Background>{label}</Background>;
+const SidebarButton = ({ label, onClick }: ButtonProps) => {
+  return <Background onClick={() => onClick()}>{label}</Background>;
 };
 
 export default SidebarButton;
