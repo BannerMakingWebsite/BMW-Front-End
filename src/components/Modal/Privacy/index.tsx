@@ -1,12 +1,17 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import {
   PrivacyPolicyDiscretion,
   Purpose,
 } from "../../../assets/constants/privacy";
 import { pxToRem } from "../../../assets/constants/pxToRem";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
+import ModalContentsRegister from "../register";
 
 function ModalContentsPrivacy() {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   return (
     <>
       <Background>
@@ -36,7 +41,16 @@ function ModalContentsPrivacy() {
           <p>{PrivacyPolicyDiscretion[4]}</p>
           <p>{PrivacyPolicyDiscretion[5]}</p>
         </PhraseWrapper>
-        <Button type="big" label="확인" />
+        <Button
+          type="big"
+          label="돌아가기"
+          onClick={() =>
+            setModalState({
+              title: "회원가입",
+              modalContents: <ModalContentsRegister />,
+            })
+          }
+        />
       </Background>
     </>
   );

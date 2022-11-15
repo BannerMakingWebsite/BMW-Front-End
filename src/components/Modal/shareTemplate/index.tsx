@@ -1,10 +1,15 @@
 import { useRef } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
 import ModalInput from "../input";
+import ModalContentsTerms from "../terms";
 
 function ModalContentsShareTemplate() {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -23,6 +28,12 @@ function ModalContentsShareTemplate() {
           id="agree"
           changeEvent={(e: React.ChangeEvent<HTMLInputElement>) =>
             (buttonRef.current.disabled = !e.target.checked)
+          }
+          onClick={() =>
+            setModalState({
+              title: "이용 약관",
+              modalContents: <ModalContentsTerms />,
+            })
           }
         />
 

@@ -13,7 +13,9 @@ export interface FigureDataType {
   shadowColor: string;
 }
 
-export type TextStyleType = ("underline" | "line-through" | "italic" | "bold" | "unset")[];
+export type TextStyleType =
+  | ("underline" | "line-through" | "italic" | "bold" | "unset")
+  | ("underline" | "line-through" | "italic" | "bold" | "unset")[];
 
 export interface TextDataType {
   id: string;

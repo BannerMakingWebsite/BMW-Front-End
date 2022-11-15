@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { FigureDataType, TextDataType } from "../../assets/types/elementTypes";

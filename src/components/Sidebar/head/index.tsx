@@ -5,9 +5,10 @@ interface HeadProps {
   type: "title" | "input" | "inputButton";
   title?: string;
   label?: string;
+  onClick?: () => void;
 }
 
-const Head = ({ type, title, label }: HeadProps) => {
+const Head = ({ type, title, label, onClick }: HeadProps) => {
   return (
     <>
       {type === "title" && (
@@ -22,7 +23,7 @@ const Head = ({ type, title, label }: HeadProps) => {
       )}
       {type === "inputButton" && (
         <TitleWrapper type="inputButton">
-          <Button>{label}</Button>
+          <Button onClick={() => onClick()}>{label}</Button>
           <SearchText placeholder="검색" />
         </TitleWrapper>
       )}

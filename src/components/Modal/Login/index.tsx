@@ -2,8 +2,14 @@ import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import Button from "../button";
 import ModalInput from "../input";
+import { useRecoilState } from "recoil";
+import { modalStateAtom } from "../../../atoms/modalState";
+import ModalContentsRegister from "../register";
+import ModalContentsVerifyEmail from "../verifyEmail";
 
 function ModalContentsLogin() {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   return (
     <>
       <Background>
@@ -14,10 +20,28 @@ function ModalContentsLogin() {
         <Button type="googleLogin" />
         <ExternalWrapper>
           <span>계정이 없으시다면?</span>
-          <strong>회원가입</strong>
+          <strong
+            onClick={() => {
+              setModalState({
+                title: "회원가입",
+                modalContents: <ModalContentsRegister />,
+              });
+            }}
+          >
+            회원가입
+          </strong>
         </ExternalWrapper>
         <ExternalWrapper>
-          <strong>비밀번호를 잊으셨나요?</strong>
+          <strong
+            onClick={() => {
+              setModalState({
+                title: "비밀번호 재설정",
+                modalContents: <ModalContentsVerifyEmail />,
+              });
+            }}
+          >
+            비밀번호를 잊으셨나요?
+          </strong>
         </ExternalWrapper>
       </Background>
     </>

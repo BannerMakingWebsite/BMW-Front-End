@@ -1,7 +1,9 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { ModalIcons } from "../../../assets/images";
 import { TemplateInfoTypes } from "../../../assets/types/templateInfoType";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
 import Comment from "../comment";
 
@@ -14,6 +16,8 @@ function ModalContentsViewTemplate({
   favorite,
   comments,
 }: TemplateInfoTypes) {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   return (
     <Background>
       <BannerImage
@@ -63,7 +67,16 @@ function ModalContentsViewTemplate({
           </Info>
         </Wrapper>
         <div>
-          <Button type="small" label="취소" />
+          <Button
+            type="small"
+            label="취소"
+            onClick={() =>
+              setModalState({
+                title: "",
+                modalContents: null,
+              })
+            }
+          />
           <Button type="small" label="적용" buttonColor="white" />
         </div>
       </div>

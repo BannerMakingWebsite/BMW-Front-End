@@ -1,9 +1,14 @@
 import { useRef } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
 import ModalInput from "../input";
+import ModalContentsPrivacy from "../Privacy";
 
 function ModalContentsRegister() {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -18,6 +23,12 @@ function ModalContentsRegister() {
           id="agree"
           changeEvent={(e: React.ChangeEvent<HTMLInputElement>) =>
             (buttonRef.current.disabled = !e.target.checked)
+          }
+          onClick={() =>
+            setModalState({
+              title: "개인정보 처리방침",
+              modalContents: <ModalContentsPrivacy />,
+            })
           }
         />
 
