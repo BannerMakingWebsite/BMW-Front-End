@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { FigureDataType, TextDataType } from "../../assets/types/elementTypes";
-import ElementListState from "../../recoilState";
-import ElementWrapper from "../elements";
-import Block from "../elements";
+import ElementListState from "../../atoms/elementState";
+
 import Circle from "../elements/circle";
 import Square from "../elements/square";
 import Text from "../elements/text";
@@ -33,7 +31,6 @@ const tempTextData: TextDataType = {
   opacity: 1,
   posX: 0,
   posY: 0,
-  sequence: 1,
   shadowColor: "none",
   shadowDirection: 0,
   shadowDistance: 0,
@@ -53,7 +50,6 @@ const tempFigureData: FigureDataType = {
   color: "green",
   borderColor: "red",
   opacity: 1,
-  sequence: 1,
   shadowColor: "none",
 };
 
