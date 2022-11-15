@@ -73,13 +73,7 @@ function EditTextTab() {
       )
     );
   };
-  const setFontStyle = (fontStyle: TextStyleType) => {
-    setElementList(
-      elementList.map((value) =>
-        value.id == curElementId ? { ...value, fontStyle: fontStyle } : value
-      )
-    );
-  };
+
   const setShadowColor = (shadowColor = curElement.shadowColor) => {
     setElementList(
       elementList.map((value) =>
@@ -145,6 +139,44 @@ function EditTextTab() {
     tempList.splice(newPosition, 0, target);
     setElementList(tempList);
   };
+  const setFontStyle = ([value]: TextStyleType) => {
+    const fontstyle = (curElement as TextDataType).fontStyle;
+    console.log(fontstyle);
+    if (fontstyle.includes(value)) {
+      // 값이 이미 존재한다면
+      const index = fontstyle.indexOf(value);
+      let newArr = [...fontstyle];
+      newArr.splice(index, 1);
+      console.log(newArr);
+      console.log(
+        elementList.map((value) =>
+          value.id == curElementId ? { ...value, fontStyle: newArr } : value
+        )
+      );
+      setElementList(
+        elementList.map((value) =>
+          value.id == curElementId ? { ...value, fontStyle: newArr } : value
+        )
+      );
+      return;
+    } else {
+      setElementList(
+        elementList.map((val) =>
+          val.id == curElementId
+            ? { ...val, fontStyle: [...fontstyle, value] }
+            : val
+        )
+      );
+      console.log(
+        elementList.map((val) =>
+          val.id == curElementId
+            ? { ...val, fontStyle: [...fontstyle, value] }
+            : val
+        )
+      );
+      return;
+    }
+  };
 
   return (
     <TotalWrapper>
@@ -152,10 +184,10 @@ function EditTextTab() {
       <ContentWrapper>
         <SetOption.Sort
           onClickFront={() => {
-            changeArrayOrder(elementList, curIdx, -1);
+            changeArrayOrder(elementList, curIdx, 1);
           }}
           onClickBack={() => {
-            changeArrayOrder(elementList, curIdx, 1);
+            changeArrayOrder(elementList, curIdx, -1);
           }}
         />
         <SetOption.Flip onClickFront={() => {}} onClickBack={() => {}} />
@@ -176,7 +208,22 @@ function EditTextTab() {
           }}
         />
         <SetOption.DropDown
-          items={["20"]}
+          items={[
+            "4",
+            "8",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+          ]}
           value={(curElement as TextDataType)?.fontSize + ""}
           name="크기"
           onChange={(value) => {
@@ -188,7 +235,10 @@ function EditTextTab() {
             setFontAlign(value);
           }}
         />
-        <SetOption.TextStyle />
+        <SetOption.TextStyle
+          onChange={(value) => setFontStyle(value)}
+          value={(curElement as TextDataType)?.fontStyle}
+        />
         <SetOption.Color
           name="글자색"
           value={(curElement as TextDataType)?.color}

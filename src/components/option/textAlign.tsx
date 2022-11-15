@@ -11,9 +11,9 @@ function TextAlign({ onChange }: Props) {
   return (
     <CommonOptionWrapper name="정렬">
       <div>
-        <Img src={LeftAlign} onClick={() => onChange("flex-start")} />
+        <Img src={LeftAlign} onClick={() => onChange("start")} />
         <Img src={CenterAlign} onClick={() => onChange("center")} />
-        <Img src={RightAlign} onClick={() => onChange("flex-end")} />
+        <Img src={RightAlign} onClick={() => onChange("end")} />
       </div>
     </CommonOptionWrapper>
   );

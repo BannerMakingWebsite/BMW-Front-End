@@ -3,7 +3,10 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import ElementWrapper from "..";
-import { TextDataType } from "../../../assets/types/elementTypes";
+import {
+  TextDataType,
+  TextStyleType,
+} from "../../../assets/types/elementTypes";
 import ElementListState, {
   CurrentElementState,
 } from "../../../atoms/elementState";
@@ -18,28 +21,30 @@ function Text({ width, height, posX, posY, ...props }: TextDataType) {
   const id = props.id;
   const type = props.type;
 
+  const TextProps = {
+    ...SizeProps,
+    ...props,
+    id,
+  };
   return (
     <ElementWrapper props={{ ...SizeProps, id, type }}>
-      <TextToggle {...props} />
+      <TextToggle props={TextProps} />
     </ElementWrapper>
   );
 }
 
 interface TextProps {
-  color: string;
-  backgroundColor: string;
+  props: TextDataType;
 }
 
-function TextToggle({ backgroundColor, color }: TextProps) {
+function TextToggle({ props }: TextProps) {
   const [doubleClicked, setClick] = useState<boolean>(false);
   const [elementList, setElementList] = useRecoilState(ElementListState);
   const [curElementId, setCurElementId] = useRecoilState(CurrentElementState);
-  const curElement = elementList.find((value) => value.id == curElementId);
+  const curElement = elementList.find((value) => value.id == props.id);
   const setValue = (value: string) => {
     setElementList(
-      elementList.map((val) =>
-        val.id == curElementId ? { ...val, value } : val
-      )
+      elementList.map((val) => (val.id == props.id ? { ...val, value } : val))
     );
   };
   const InputRef = useRef(null);
@@ -63,11 +68,7 @@ function TextToggle({ backgroundColor, color }: TextProps) {
         setClick(false);
       }}
     >
-      <Wrapper
-        backgroundColor={backgroundColor}
-        color={color}
-        onDoubleClick={() => setClick(true)}
-      >
+      <Wrapper {...props} onDoubleClick={() => setClick(true)}>
         {doubleClicked ? (
           <InputMode
             value={(curElement as TextDataType).value}
@@ -93,11 +94,48 @@ function TextToggle({ backgroundColor, color }: TextProps) {
 
 export default Text;
 
-const Wrapper = styled.div<{ color: string; backgroundColor: string }>`
+const Wrapper = styled.div<{
+  opacity: number;
+  fontFamily: string;
+  fontSize: number;
+  fontAlign: string;
+  fontStyle: TextStyleType;
+  color: string;
+  backgroundColor: string;
+  borderColor: string;
+  borderWidth: number;
+  shadowColor: string;
+  shadowDirection: number;
+  shadowDistance: number;
+  shadowOpacity: number;
+}>`
   width: 100%;
   height: 100%;
-  color: ${(props) => props.color};
+  > textarea,
+  pre {
+    color: ${(props) => props.color};
+    font-family: ${(props) => props.fontFamily};
+    font-size: ${(props) => props.fontSize}px;
+    text-align: ${(props) => props.fontAlign};
+    text-decoration: ${(props) =>
+        props.fontStyle.includes("underline") && " underline"} ${(props) =>
+        props.fontStyle.includes("line-through") && " line-through"};
+    font-weight: ${(props) => props.fontStyle.includes("bold") && "bold"};
+    font-style: ${(props) => props.fontStyle.includes("italic") && "italic"};
+  }
+  border: ${(props) => props.borderWidth}px solid
+    ${(props) => props.borderColor};
   background-color: ${(props) => props.backgroundColor};
+  opacity: ${(props) => props.opacity / 100};
+  box-shadow: ${(props) =>
+    props.shadowColor != ""
+      ? props.shadowDirection -
+        50 +
+        "px " +
+        (props.shadowDistance - 50 + "px ") +
+        (props.shadowOpacity + "px ") +
+        props.shadowColor
+      : ""};
 `;
 
 const TextMode = styled.pre`

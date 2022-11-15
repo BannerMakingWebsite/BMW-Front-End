@@ -2,7 +2,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { FigureDataType, TextDataType } from "../../assets/types/elementTypes";
 import ElementListState from "../../atoms/elementState";
-
+import ElementWrapper from "../elements";
+import Block from "../elements";
 import Circle from "../elements/circle";
 import Square from "../elements/square";
 import Text from "../elements/text";
@@ -26,12 +27,12 @@ const tempTextData: TextDataType = {
   fontAlign: "flex-end",
   fontFamily: "unset",
   fontSize: 13,
-  fontStyle: "unset",
+  fontStyle: ["unset"],
   height: 100,
   opacity: 1,
   posX: 0,
   posY: 0,
-  shadowColor: "none",
+  shadowColor: "white",
   shadowDirection: 0,
   shadowDistance: 0,
   shadowOpacity: 0,
