@@ -227,6 +227,7 @@ export default ElementWrapper;
 
 const ItemWrapper = styled.div`
   position: absolute;
+  box-sizing: content-box;
   > div:not(.resize) {
     width: 100%;
     height: 100%;

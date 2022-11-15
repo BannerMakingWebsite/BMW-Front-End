@@ -1,24 +1,35 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { pxToRem } from "../../assets/constants/pxToRem";
 import { CenterAlign, LeftAlign, RightAlign } from "../../assets/images/option";
+import { TextDataType, TextStyleType } from "../../assets/types/elementTypes";
 import CommonOptionWrapper from "./wrappers/commonOptionWrapper";
 
-interface Props {}
+interface Props {
+  onChange: ([value]: TextStyleType) => void;
+  value: TextStyleType;
+}
 
-function TextStyle({}: Props) {
+function TextStyle({ onChange, value }: Props) {
+  const [style, setStyle] = useState<TextStyleType>([]);
+
+  useEffect(() => {
+    console.log(value);
+  }, [value]);
+
   return (
     <CommonOptionWrapper name="스타일">
       <BlockWrapper>
-        <Block>
+        <Block onClick={() => onChange(["bold"])}>
           <p id="bold">B</p>
         </Block>
-        <Block>
+        <Block onClick={() => onChange(["italic"])}>
           <p id="italic">I</p>
         </Block>
-        <Block>
+        <Block onClick={() => onChange(["underline"])}>
           <p id="underline">U</p>
         </Block>
-        <Block>
+        <Block onClick={() => onChange(["line-through"])}>
           <p id="line-through">T</p>
         </Block>
       </BlockWrapper>

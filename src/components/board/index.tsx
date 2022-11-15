@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { FigureDataType, TextDataType } from "../../assets/types/elementTypes";
-import ElementListState from "../../recoilState";
+import ElementListState from "../../atoms/elementState";
 import ElementWrapper from "../elements";
 import Block from "../elements";
 import Circle from "../elements/circle";
@@ -28,13 +28,12 @@ const tempTextData: TextDataType = {
   fontAlign: "flex-end",
   fontFamily: "unset",
   fontSize: 13,
-  fontStyle: "unset",
+  fontStyle: ["unset"],
   height: 100,
   opacity: 1,
   posX: 0,
   posY: 0,
-  sequence: 1,
-  shadowColor: "none",
+  shadowColor: "white",
   shadowDirection: 0,
   shadowDistance: 0,
   shadowOpacity: 0,
@@ -53,7 +52,6 @@ const tempFigureData: FigureDataType = {
   color: "green",
   borderColor: "red",
   opacity: 1,
-  sequence: 1,
   shadowColor: "none",
 };
 

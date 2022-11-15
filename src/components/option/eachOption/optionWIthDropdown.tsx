@@ -69,7 +69,8 @@ const TotalWrapper = styled.div<{ width: number }>`
 
 const DropList = styled.div`
   width: 100%;
-  height: fit-content;
+  max-height: ${pxToRem(105)}rem;
+  overflow-y: scroll;
   position: absolute;
   top: ${pxToRem(35)}rem;
   left: 0%;
@@ -82,7 +83,10 @@ const DropList = styled.div`
     align-items: center;
     justify-content: flex-start;
     height: ${pxToRem(35)}rem;
-    padding: 0 ${pxToRem(8)}rem;
+    padding: ${pxToRem(17)}rem ${pxToRem(8)}rem;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;
 
