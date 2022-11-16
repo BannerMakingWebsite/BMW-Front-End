@@ -80,10 +80,8 @@ const TotalWrapper = styled.div<{ width: number; height: number }>`
   border: 1px solid black;
   aspect-ratio: ${(props) => props.width + "/" + props.height};
   max-width: 1000px;
-  min-width: ${(props) => (props.width > 700 ? 700 : props.width)}px;
-  min-height: ${(props) => (props.height > 700 ? 700 : props.height)}px;
   max-height: 800px;
-  height: ${(props) => props.height}px;
+  width: ${(props) => props.width}px;
   background-color: white;
   position: absolute;
 `;

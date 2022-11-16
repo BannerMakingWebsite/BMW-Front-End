@@ -223,6 +223,19 @@ function EditTextTab() {
             "22",
             "24",
             "26",
+            "30",
+            "34",
+            "38",
+            "40",
+            "48",
+            "52",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100",
+            "110",
+            "120",
           ]}
           value={(curElement as TextDataType)?.fontSize + ""}
           name="크기"
