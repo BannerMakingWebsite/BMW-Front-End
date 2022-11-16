@@ -142,9 +142,9 @@ function EditTextTab() {
   const setFontStyle = ([value]: TextStyleType) => {
     const fontstyle = (curElement as TextDataType).fontStyle;
     console.log(fontstyle);
-    if (fontstyle.includes(value)) {
+    if (Object.values(fontstyle).some((v) => v === value)) {
       // 값이 이미 존재한다면
-      const index = fontstyle.indexOf(value);
+      const index = Object.keys(fontstyle).indexOf(value);
       let newArr = [...fontstyle];
       newArr.splice(index, 1);
       console.log(newArr);
