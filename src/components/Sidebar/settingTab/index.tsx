@@ -1,15 +1,38 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
+import { BoardSizeState } from "../../../atoms/elementState";
 import * as SetOption from "../../option";
 import Head from "../head";
 
 function SettingTab() {
+  const [size, setSize] = useRecoilState(BoardSizeState);
+
   return (
     <TotalWrapper>
       <Head type="title" title="설정" />
       <ContentWrapper>
-        <SetOption.Size name="이미지 가로 크기" onChange={() => {}} />
-        <SetOption.Size name="이미지 세로 크기" onChange={() => {}} />
+        <SetOption.Size
+          name="이미지 가로 크기"
+          value={size.width + ""}
+          onChange={(value) => {
+            setSize({
+              width: Number(value) > 1920 ? 1920 : Number(value),
+              height: size.height,
+            });
+          }}
+        />
+        <SetOption.Size
+          name="이미지 세로 크기"
+          value={size.height + ""}
+          onChange={(value) => {
+            console.log(value);
+            setSize({
+              height: Number(value) > 1080 ? 1080 : Number(value),
+              width: size.width,
+            });
+          }}
+        />
         <SetOption.DropDown
           wide={true}
           items={["시스템 설정"]}

@@ -4,21 +4,22 @@ import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { DropArrow } from "../../../assets/images/option";
 
-interface Props<T> {
-  onChange: (value: T) => void;
+interface Props {
+  onChange: (value: string) => void;
   width: number;
+  value?: string;
 }
 
-function OptionWithInput<T extends string>({ onChange, width }: Props<T>) {
-  const [value, setValue] = useState<number | string>(0);
+function OptionWithInput({ onChange, width, value }: Props) {
   return (
     <TotalWrapper width={width}>
       <input
         type="text"
         value={value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setValue(e.currentTarget.value.replace(/[^0-9]/g, ""))
-        }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          onChange(e.currentTarget.value.replace(/[^0-9]/g, ""));
+          console.log(e.currentTarget.value.replace(/[^0-9]/g, ""));
+        }}
       />
       <p>px</p>
     </TotalWrapper>

@@ -19,10 +19,12 @@ import TemplateTab from "./components/Sidebar/templateTab";
 import LoginTab from "./components/Sidebar/loginTab";
 import Modal from "./components/Modal";
 import { modalStateAtom } from "./atoms/modalState";
+import { BoardSizeState } from "./atoms/elementState";
 
 function App() {
   const queryClient = new QueryClient();
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const [size] = useRecoilState(BoardSizeState);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -35,7 +37,7 @@ function App() {
           <Background>
             <Header />
             <Sidebar />
-            <Board width={1920} height={1080} />
+            <Board width={size.width} height={size.height} />
             <Routes>
               <Route element={<></>} />
               <Route path="/template" element={<TemplateTab />} />
