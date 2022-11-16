@@ -14,7 +14,7 @@ function Circle({ width, height, posX, posY, ...props }: FigureDataType) {
   const type = props.type;
 
   return (
-    <ElementWrapper props={{ ...SizeProps, id,type }}>
+    <ElementWrapper props={{ ...SizeProps, id, type }}>
       <Wrapper {...props}></Wrapper>
     </ElementWrapper>
   );
@@ -33,8 +33,11 @@ const Wrapper = styled.div<{
   border-radius: 100%;
   background-color: ${(props) => props.color};
   ${(props) =>
-    props.borderColor ? "border: 1px solid " + props.borderColor : ""};
+    props.borderColor != "" ? "border: 1px solid " + props.borderColor : ""};
   opacity: ${(props) => props.opacity / 100};
-  box-shadow: ${pxToRem(1)}rem ${pxToRem(1)}rem ${pxToRem(1)}rem
-    ${(props) => props.shadowColor};
+  ${(props) =>
+    props.shadowColor
+      ? `box-shadow: ${pxToRem(5)}rem ${pxToRem(5)}rem ${pxToRem(5)}rem
+    ${props.shadowColor}`
+      : ""};
 `;

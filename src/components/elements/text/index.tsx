@@ -123,7 +123,7 @@ const Wrapper = styled.div<{
     font-weight: ${(props) => props.fontStyle.includes("bold") && "bold"};
     font-style: ${(props) => props.fontStyle.includes("italic") && "italic"};
   }
-  border: ${(props) => props.borderWidth}px solid
+  border: ${(props) => props.borderColor != "" ? props.borderWidth : 0}px solid
     ${(props) => props.borderColor};
   background-color: ${(props) => props.backgroundColor};
   opacity: ${(props) => props.opacity / 100};

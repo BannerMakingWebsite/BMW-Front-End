@@ -31,8 +31,12 @@ const Wrapper = styled.div<{
   height: 100%;
   background-color: ${(props) => props.color};
   ${(props) =>
-    props.borderColor ? "border: 1px solid " + props.borderColor : ""};
+    props.borderColor != "" ? "border: 1px solid " + props.borderColor : ""};
+
   opacity: ${(props) => props.opacity / 100};
-  box-shadow: ${pxToRem(1)}rem ${pxToRem(1)}rem ${pxToRem(1)}rem
-    ${(props) => props.shadowColor};
+  ${(props) =>
+    props.shadowColor
+      ? `box-shadow: ${pxToRem(5)}rem ${pxToRem(5)}rem ${pxToRem(5)}rem
+    ${props.shadowColor}`
+      : ""};
 `;
