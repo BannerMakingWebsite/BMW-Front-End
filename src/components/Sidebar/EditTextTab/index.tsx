@@ -126,12 +126,10 @@ function EditTextTab() {
     moveValue: number
   ) {
     if (list.length <= 0) {
-      console.log("배열 길이가 짧음");
       return;
     }
     const newPosition = targetIdx + moveValue;
     if (newPosition < 0 || newPosition >= list.length) {
-      console.log("이동 불가능");
       return;
     }
     let tempList = [...list];
@@ -142,17 +140,11 @@ function EditTextTab() {
   const setFontStyle = ([value]: TextStyleType) => {
     const fontstyle = (curElement as TextDataType).fontStyle;
     console.log(fontstyle);
-    if (Object.values(fontstyle).some((v) => v === value)) {
+    if (Object.values(fontstyle).find((v) => v === value)) {
       // 값이 이미 존재한다면
-      const index = Object.keys(fontstyle).indexOf(value);
+      const index = Object.values(fontstyle).indexOf(value);
       let newArr = [...fontstyle];
       newArr.splice(index, 1);
-      console.log(newArr);
-      console.log(
-        elementList.map((value) =>
-          value.id == curElementId ? { ...value, fontStyle: newArr } : value
-        )
-      );
       setElementList(
         elementList.map((value) =>
           value.id == curElementId ? { ...value, fontStyle: newArr } : value
@@ -161,13 +153,6 @@ function EditTextTab() {
       return;
     } else {
       setElementList(
-        elementList.map((val) =>
-          val.id == curElementId
-            ? { ...val, fontStyle: [...fontstyle, value] }
-            : val
-        )
-      );
-      console.log(
         elementList.map((val) =>
           val.id == curElementId
             ? { ...val, fontStyle: [...fontstyle, value] }

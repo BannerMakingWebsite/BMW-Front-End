@@ -1,12 +1,13 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
-import { BoardSizeState } from "../../../atoms/elementState";
+import { AutoSaveState, BoardSizeState } from "../../../atoms/elementState";
 import * as SetOption from "../../option";
 import Head from "../head";
 
 function SettingTab() {
   const [size, setSize] = useRecoilState(BoardSizeState);
+  const [savetime, setTime] = useRecoilState(AutoSaveState);
 
   return (
     <TotalWrapper>
@@ -42,10 +43,12 @@ function SettingTab() {
         />
         <SetOption.DropDown
           wide={true}
-          items={["5분"]}
-          value="5분"
+          items={["1분", "2분", "3분", "4분", "5분"]}
+          value={savetime + "분"}
           name="임시 저장 간격"
-          onChange={() => {}}
+          onChange={(value) => {
+            setTime(Number(value.replace("분", "")));
+          }}
         />
         <SetOption.Button name="설정 초기화" onClick={() => {}} />
       </ContentWrapper>

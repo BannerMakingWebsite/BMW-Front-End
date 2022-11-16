@@ -19,4 +19,9 @@ export const BoardSizeState = atom<{ width: number; height: number }>({
   },
 });
 
+export const AutoSaveState = atom<number>({
+  key: "AutoSave",
+  default: 1,
+});
+
 export default ElementListState;

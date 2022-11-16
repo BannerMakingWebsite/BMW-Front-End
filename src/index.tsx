@@ -19,12 +19,50 @@ import TemplateTab from "./components/Sidebar/templateTab";
 import LoginTab from "./components/Sidebar/loginTab";
 import Modal from "./components/Modal";
 import { modalStateAtom } from "./atoms/modalState";
-import { BoardSizeState } from "./atoms/elementState";
+import ElementListState, {
+  AutoSaveState,
+  BoardSizeState,
+} from "./atoms/elementState";
+import { useEffect, useState } from "react";
 
 function App() {
   const queryClient = new QueryClient();
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
   const [size] = useRecoilState(BoardSizeState);
+  const [saveTime] = useRecoilState(AutoSaveState);
+  const [clearid, setId] = useState<NodeJS.Timer>();
+  const [elementList, setElementList] = useRecoilState(ElementListState);
+  const beforeUnloadListener = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    return (event.returnValue = "Are you sure you want to exit?");
+  };
+
+  useEffect(() => {
+    addEventListener("beforeunload", beforeUnloadListener, { capture: true });
+    return () => {
+      removeEventListener("beforeunload", beforeUnloadListener, {
+        capture: true,
+      });
+    };
+  }, []);
+
+  const list = elementList;
+
+  const saveData = () => {
+    console.log(list);
+    window.localStorage.setItem(
+      "BMW-element-data",
+      JSON.stringify(elementList)
+    );
+  };
+
+  useEffect(() => {
+    clearInterval(clearid);
+    const AutoSave = setInterval(() => {
+      saveData();
+    }, saveTime * 60000);
+    setId(AutoSave);
+  }, [saveTime, elementList]);
 
   return (
     <QueryClientProvider client={queryClient}>
