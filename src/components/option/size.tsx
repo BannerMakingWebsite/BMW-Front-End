@@ -5,12 +5,13 @@ import WideOptionWrapper from "./wrappers/wideOptionWrapper";
 interface Props {
   name: string;
   onChange: (value: string) => void;
+  value: string;
 }
 
-function Size({ name, onChange }: Props) {
+function Size({ name, onChange, value }: Props) {
   return (
     <WideOptionWrapper name={name}>
-      <OptionWithInput onChange={onChange} width={200} />
+      <OptionWithInput onChange={onChange} width={200} value={value} />
     </WideOptionWrapper>
   );
 }
