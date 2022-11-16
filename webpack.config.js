@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
+const dotenv = require("dotenv");
+dotenv.config();
 
 module.exports = (env, argv) => {
   const prod = argv.mode === "production";
@@ -35,18 +37,14 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      new webpack.DefinePlugin({
+        "process.env": JSON.stringify(process.env),
+      }),
       new webpack.ProvidePlugin({
         React: "react",
       }),
       new HtmlWebpackPlugin({
         template: "./public/index.html",
-        minify:
-          process.env.NODE_ENV === "production"
-            ? {
-                collapseWhitespace: true,
-                removeComments: true,
-              }
-            : false,
       }),
     ],
   };
