@@ -1,12 +1,105 @@
+import axios from "axios";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
 import ModalInput from "../input";
+import ModalContentsLogin from "../login";
 
-function ModalContentsResetPassword() {
+type PasswordStateType = {
+  password: string;
+  passwordConfirm: string;
+};
+
+interface ModalContentsResetPasswordProps {
+  email: string;
+}
+
+function ModalContentsResetPassword({
+  email,
+}: ModalContentsResetPasswordProps) {
+  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+
+  const [passwordState, setPasswordState] = useState<PasswordStateType>({
+    password: "",
+    passwordConfirm: "",
+  });
+  const [warning, setWarning] = useState<PasswordStateType>({
+    password: "",
+    passwordConfirm: "",
+  });
+
+  const validateForm = (): boolean => {
+    let temp: PasswordStateType = Object.assign({}, warning);
+
+    if (passwordState.password === "") {
+      temp.password = "값이 입력되지 않았습니다.";
+      setWarning(temp);
+      return false;
+    } else temp.password = "";
+
+    if (
+      !String(passwordState.password).match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/
+      )
+    ) {
+      temp.password = "비밀번호 형식이 올바르지 않습니다.";
+      setWarning(temp);
+      return false;
+    } else temp.password = "";
+
+    if (passwordState.password !== passwordState.passwordConfirm) {
+      temp.password = "비밀번호가 일치하지 않습니다.";
+      setWarning(temp);
+      return false;
+    } else temp.password = "";
+
+    setWarning(temp);
+    return true;
+  };
+
+  const onSubmit = () => {
+    if (validateForm())
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}/passwordReset`, {
+          email: email,
+          newPassword: passwordState.password,
+        })
+        .then(function () {
+          alert("성공적으로 비밀번호 재설정이 완료되었습니다.");
+          setModalState({
+            title: "로그인",
+            modalContents: <ModalContentsLogin />,
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+          alert("알 수 없는 오류가 발생하였습니다.");
+          return;
+        });
+  };
+
   return (
     <>
-      <Background>
-        <ModalInput type="doublePassword" id="pw" />
+      <Background
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
+        <ModalInput
+          type="doublePassword"
+          id="pw"
+          value={[passwordState.password, passwordState.passwordConfirm]}
+          warning={warning.password}
+          onChange={(value, labelIndex) => {
+            let temp: PasswordStateType = Object.assign({}, passwordState);
+            if (labelIndex === 0) temp.password = value;
+            else if (labelIndex === 1) temp.passwordConfirm = value;
+            setPasswordState(temp);
+          }}
+        />
         <Button type="big" label="재설정" />
       </Background>
     </>
