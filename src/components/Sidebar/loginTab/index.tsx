@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { modalStateAtom } from "../../../atoms/modalState";
-import ModalContentsLogin from "../../Modal/Login";
+import ModalContentsLogin from "../../Modal/login";
 import ModalContentsRegister from "../../Modal/register";
 import SidebarButton from "../button";
 import Head from "../head";

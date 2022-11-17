@@ -26,9 +26,7 @@ function ModalContentsShareTemplate() {
           type="checkbox"
           label={"BMW의 *이용 약관*에 동의합니다."}
           id="agree"
-          changeEvent={(e: React.ChangeEvent<HTMLInputElement>) =>
-            (buttonRef.current.disabled = !e.target.checked)
-          }
+          refObj={buttonRef}
           onClick={() =>
             setModalState({
               title: "이용 약관",

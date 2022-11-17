@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
-import { ModalIcons } from "../../../assets/images";
 import theme from "../../../styles/theme";
+import GoogleLoginButton from "../googleLogin";
 
 interface ButtonProps {
   type: "big" | "small" | "googleLogin";
@@ -26,7 +26,7 @@ const ModalButton = ({
           disabled={refObj && true}
           ref={refObj}
           buttonColor={buttonColor}
-          onClick={() => onClick()}
+          onClick={() => onClick && onClick()}
         >
           {label}
         </SmallButton>
@@ -37,17 +37,12 @@ const ModalButton = ({
           disabled={refObj && true}
           ref={refObj}
           buttonColor={buttonColor}
-          onClick={() => onClick()}
+          onClick={() => onClick && onClick()}
         >
           {label}
         </BigButton>
       )}
-      {type === "googleLogin" && (
-        <GoogleWrapper>
-          <img src={ModalIcons.Google} alt="google login" />
-          구글 계정으로 로그인
-        </GoogleWrapper>
-      )}
+      {type === "googleLogin" && <GoogleLoginButton />}
     </>
   );
 };
@@ -105,40 +100,5 @@ const BigButton = styled.button<ButtonStyleProps>`
 
   :enabled {
     ${({ theme }) => theme.common.hoverEffect}
-  }
-`;
-const GoogleWrapper = styled.div`
-  position: fixed;
-
-  transform: translateY(${pxToRem(336)}rem);
-
-  background-color: ${({ theme }) => theme.colors.bg1f};
-
-  margin-top: ${pxToRem(24)}rem;
-
-  width: ${pxToRem(624)}rem;
-  height: ${pxToRem(80)}rem;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fontSizes.title};
-
-  border: 0.1px solid ${({ theme }) => theme.colors.grey};
-  border-radius: 1.5rem;
-  cursor: pointer;
-  transition: filter 0.25s ease;
-
-  ${({ theme }) => theme.common.hoverEffect}
-
-  img {
-    transform: translateY(${pxToRem(0.8)}rem);
-
-    margin-right: ${pxToRem(8)}rem;
-
-    width: ${pxToRem(40)}rem;
-    height: ${pxToRem(40)}rem;
   }
 `;

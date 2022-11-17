@@ -21,7 +21,6 @@ const GoogleLoginButton = () => {
     const jwtToken = response.accessToken;
 
     if (jwtToken) {
-      console.log(response.accessToken);
       C.setCookie("accToken", response.accessToken, {
         path: "/",
         secure: true,

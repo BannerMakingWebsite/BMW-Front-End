@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { sendEmail } from "../../../apis/sendEmail";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 
 interface ModalInputProps {
+  id: string;
   type:
     | "checkbox"
     | "big"
@@ -12,27 +14,38 @@ interface ModalInputProps {
     | "doublePassword"
     | "doubleEmail";
   label?: string;
-  id: string;
-  changeEvent?: React.ChangeEventHandler<HTMLInputElement>;
+
+  value?: string | string[];
+  warning?: string;
+
   onClick?: () => void;
+  onChange?: (value: string, labelIndex?: number) => void;
+  refObj?: React.MutableRefObject<HTMLButtonElement>;
 }
 
 const ModalInput = ({
+  id,
   type,
   label,
-  id,
-  changeEvent,
+  value,
+  warning,
   onClick,
+  onChange,
+  refObj,
 }: ModalInputProps) => {
   const [labelIndex, setLabelIndex] = useState<number>(0);
-  const [value, setValue] = useState<string[]>([]);
-  const [warning, setWarning] = useState<string>("");
 
   return (
     <>
       {type === "checkbox" && (
         <CheckboxWrapper>
-          <input id={id} type="checkbox" onChange={changeEvent} />
+          <input
+            id={id}
+            type="checkbox"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              refObj && (refObj.current.disabled = !e.target.checked)
+            }
+          />
           <label htmlFor={id}>
             {label.indexOf("*") !== -1 &&
             (label.match(/\*/g) || []).length === 2 ? (
@@ -94,7 +107,12 @@ const ModalInput = ({
             <label htmlFor={id}>{label}</label>
             {warning && <span>{warning}</span>}
           </LabelWrapper>
-          <Input id={id} />
+          <Input
+            id={id}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange && onChange(e.currentTarget.value);
+            }}
+          />
         </div>
       )}
 
@@ -110,6 +128,9 @@ const ModalInput = ({
             minLength={8}
             maxLength={24}
             placeholder="길이 8 ~ 24 글자, 알파벳과 숫자, 특수문자 조합"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange && onChange(e.currentTarget.value);
+            }}
           />
         </div>
       )}
@@ -147,11 +168,7 @@ const ModalInput = ({
             maxLength={24}
             placeholder="길이 8 ~ 24 글자, 알파벳과 숫자, 특수문자 조합"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              {
-                const temp: string[] = [...value];
-                temp[labelIndex] = e.currentTarget.value;
-                setValue(temp);
-              }
+              onChange && onChange(e.currentTarget.value, labelIndex);
             }}
             value={value[labelIndex]}
           />
@@ -186,20 +203,20 @@ const ModalInput = ({
           <div>
             <Input
               key={labelIndex}
-              type={labelIndex === 0 && "email"}
+              type={labelIndex === 0 ? "email" : ""}
               id={id}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                {
-                  const temp: string[] = [...value];
-                  temp[labelIndex] = e.currentTarget.value;
-                  setValue(temp);
-                }
+                onChange && onChange(e.currentTarget.value, labelIndex);
               }}
               value={value[labelIndex]}
               isOverlaid={labelIndex === 0 && true}
               autoComplete={"DoNotAutoComplete"}
             />
-            {labelIndex === 0 && <Overlay>인증 번호 발송</Overlay>}
+            {labelIndex === 0 && (
+              <Overlay onClick={() => sendEmail(value[0])}>
+                인증 번호 발송
+              </Overlay>
+            )}
           </div>
         </div>
       )}
@@ -292,6 +309,22 @@ const LabelWrapper = styled.label<LabelWrapperProps>`
   display: flex;
   align-items: flex-end;
 
+  > span {
+    color: ${({ theme }) => theme.colors.error};
+    font-size: ${({ theme }) => theme.fontSizes.text};
+
+    @keyframes fadeIn {
+      0% {
+        color: ${({ theme }) => theme.colors.white};
+      }
+      100% {
+        color: ${({ theme }) => theme.colors.error};
+      }
+    }
+
+    animation: fadeIn 0.5s ease;
+  }
+
   > label {
     margin-right: ${pxToRem(8)}rem;
 
@@ -306,22 +339,6 @@ const LabelWrapper = styled.label<LabelWrapperProps>`
     :nth-child(${(props) => props.labelIndex + 1}) {
       color: ${({ theme }) => theme.colors.white};
       font-size: ${({ theme }) => theme.fontSizes.subTitle};
-    }
-
-    > span {
-      color: ${({ theme }) => theme.colors.error};
-      font-size: ${({ theme }) => theme.fontSizes.text};
-
-      @keyframes fadeIn {
-        0% {
-          color: ${({ theme }) => theme.colors.white};
-        }
-        100% {
-          color: ${({ theme }) => theme.colors.error};
-        }
-      }
-
-      animation: fadeIn 0.5s ease;
     }
   }
 `;
