@@ -2,6 +2,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { FigureDataType, TextDataType } from "../../assets/types/elementTypes";
 import ElementListState from "../../atoms/elementState";
+import Capture from "../capture";
 import ElementWrapper from "../elements";
 import Block from "../elements";
 import Circle from "../elements/circle";
@@ -57,20 +58,22 @@ const tempFigureData: FigureDataType = {
 function Board({ height, width }: Props) {
   const [elementList] = useRecoilState(ElementListState);
   return (
-    <TotalWrapper height={height} width={width}>
-      {elementList.map((value, index) => {
-        switch (value.type) {
-          case "circle":
-            return <Circle {...value} />;
-          case "square":
-            return <Square {...value} />;
-          case "triangle":
-            return <Triangle {...value} />;
-          case "text":
-            return <Text {...(value as TextDataType)} />;
-        }
-      })}
-    </TotalWrapper>
+    <Capture>
+      <TotalWrapper height={height} width={width}>
+        {elementList.map((value, index) => {
+          switch (value.type) {
+            case "circle":
+              return <Circle {...value} key={index} />;
+            case "square":
+              return <Square {...value} key={index} />;
+            case "triangle":
+              return <Triangle {...value} key={index} />;
+            case "text":
+              return <Text {...(value as TextDataType)} key={index} />;
+          }
+        })}
+      </TotalWrapper>
+    </Capture>
   );
 }
 
@@ -84,4 +87,5 @@ const TotalWrapper = styled.div<{ width: number; height: number }>`
   width: ${(props) => props.width}px;
   background-color: white;
   position: absolute;
+  bottom: 0;
 `;
