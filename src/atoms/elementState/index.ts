@@ -24,4 +24,9 @@ export const AutoSaveState = atom<number>({
   default: 1,
 });
 
+export const CaptureRefState = atom<React.MutableRefObject<HTMLDivElement>>({
+  key: "CaptureRef",
+  default: null,
+});
+
 export default ElementListState;

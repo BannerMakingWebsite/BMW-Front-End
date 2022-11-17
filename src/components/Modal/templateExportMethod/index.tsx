@@ -1,12 +1,34 @@
+import html2canvas from "html2canvas";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { ModalIcons } from "../../../assets/images";
+import { CaptureRefState } from "../../../atoms/elementState";
 import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
 
 function ModalContentsTemplateExportMethod() {
-  const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const [, setModalState] = useRecoilState(modalStateAtom);
+  const [ref] = useRecoilState(CaptureRefState);
+  const handleDownloadImage = async (
+    printRef: React.MutableRefObject<any>,
+    fileType: string
+  ) => {
+    const element = printRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL(`image/${fileType}`);
+    const link = document.createElement("a");
+    console.log(canvas);
+    if (typeof link.download === "string") {
+      link.href = data;
+      link.download = `image.${fileType}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.open(data);
+    }
+  };
 
   return (
     <Background>
@@ -16,19 +38,19 @@ function ModalContentsTemplateExportMethod() {
       />
       <div>
         <Wrapper>
-          <Card>
+          <Card onClick={() => handleDownloadImage(ref, "jpg")}>
             <img alt="JPG-method" src={ModalIcons.JPG} />
             <h1>.jpg 형식</h1>
           </Card>
-          <Card>
+          <Card onClick={() => handleDownloadImage(ref, "png")}>
             <img alt="PNG-method" src={ModalIcons.PNG} />
             <h1>.png 형식</h1>
           </Card>
-          <Card>
+          <Card onClick={() => handleDownloadImage(ref, "pdf")}>
             <img alt="PDF-method" src={ModalIcons.PDF} />
             <h1>.pdf 형식</h1>
           </Card>
-          <Card>
+          <Card onClick={() => handleDownloadImage(ref, "pdf")}>
             <img alt="Clipboard-method" src={ModalIcons.Clipboard} />
             <h1>클립보드 복사</h1>
           </Card>
