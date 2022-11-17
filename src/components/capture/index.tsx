@@ -1,5 +1,4 @@
 import React, { ReactNode, useCallback, useEffect, useRef } from "react";
-import { toPng } from "html-to-image";
 import html2canvas from "html2canvas";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
