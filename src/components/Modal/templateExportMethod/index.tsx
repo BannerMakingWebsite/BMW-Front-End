@@ -1,4 +1,5 @@
 import html2canvas from "html2canvas";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
@@ -10,6 +11,7 @@ import Button from "../button";
 function ModalContentsTemplateExportMethod() {
   const [, setModalState] = useRecoilState(modalStateAtom);
   const [ref] = useRecoilState(CaptureRefState);
+
   const handleDownloadImage = async (
     printRef: React.MutableRefObject<any>,
     fileType: string
@@ -17,17 +19,33 @@ function ModalContentsTemplateExportMethod() {
     const element = printRef.current;
     const canvas = await html2canvas(element);
     const data = canvas.toDataURL(`image/${fileType}`);
+    console.log(data);
     const link = document.createElement("a");
-    console.log(canvas);
     if (typeof link.download === "string") {
       link.href = data;
       link.download = `image.${fileType}`;
+      console.log(link.download);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } else {
       window.open(data);
     }
+  };
+
+  const handleCopy = () => {
+    html2canvas(ref.current).then((canvas) =>
+      canvas.toBlob((blob) => {
+        //캔버스 이미지 blob 데이터로 변환 //2
+        navigator.clipboard.write([
+          //3
+          new ClipboardItem({
+            "image/png": blob, //<- 복사할 blob 데이터
+          }),
+        ]);
+      })
+    );
+    alert("복사되었습니다.");
   };
 
   return (
@@ -50,7 +68,7 @@ function ModalContentsTemplateExportMethod() {
             <img alt="PDF-method" src={ModalIcons.PDF} />
             <h1>.pdf 형식</h1>
           </Card>
-          <Card onClick={() => handleDownloadImage(ref, "pdf")}>
+          <Card onClick={() => handleCopy()}>
             <img alt="Clipboard-method" src={ModalIcons.Clipboard} />
             <h1>클립보드 복사</h1>
           </Card>
