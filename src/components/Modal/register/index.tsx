@@ -34,34 +34,35 @@ function ModalContentsRegister() {
       temp.name = "값이 입력되지 않았습니다.";
       setWarning(temp);
       return false;
-    } else {
-      temp.name = "";
-    }
+    } else temp.name = "";
 
     if (signUpState.password === "") {
       temp.password = "값이 입력되지 않았습니다.";
       setWarning(temp);
       return false;
-    } else {
-      temp.password = "";
-    }
+    } else temp.password = "";
 
     if (signUpState.email === "") {
       temp.email = "값이 입력되지 않았습니다.";
       setWarning(temp);
       return false;
-    } else {
-      temp.email = "";
-    }
+    } else temp.email = "";
+
+    if (
+      !String(signUpState.password).match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/
+      )
+    ) {
+      temp.password = "비밀번호 형식이 올바르지 않습니다.";
+      setWarning(temp);
+      return false;
+    } else temp.password = "";
 
     if (signUpState.password !== signUpState.passwordConfirm) {
       temp.password = "비밀번호가 일치하지 않습니다.";
       setWarning(temp);
       return false;
-    } else {
-      temp.password = "";
-      setWarning(temp);
-    }
+    } else temp.password = "";
 
     if (
       !String(signUpState.email)
@@ -70,16 +71,12 @@ function ModalContentsRegister() {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
     ) {
-      let temp: SignUpStateRequestType = Object.assign({}, warning);
       temp.email = "이메일의 형식이 올바르지 않습니다.";
       setWarning(temp);
       return false;
-    } else {
-      let temp: SignUpStateRequestType = Object.assign({}, warning);
-      temp.email = "";
-      setWarning(temp);
-    }
+    } else temp.email = "";
 
+    setWarning(temp);
     return true;
   };
 

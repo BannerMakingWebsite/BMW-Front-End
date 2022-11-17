@@ -24,33 +24,65 @@ function ModalContentsLogin() {
     password: "",
   });
 
+  const validateForm = (): boolean => {
+    let temp: LoginRequestType = Object.assign({}, warning);
+
+    if (loginState.password === "") {
+      temp.password = "값이 입력되지 않았습니다.";
+      setWarning(temp);
+      return false;
+    } else temp.password = "";
+
+    if (loginState.email === "") {
+      temp.email = "값이 입력되지 않았습니다.";
+      setWarning(temp);
+      return false;
+    } else temp.email = "";
+
+    if (
+      !String(loginState.email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+      temp.email = "이메일의 형식이 올바르지 않습니다.";
+      setWarning(temp);
+      return false;
+    } else temp.email = "";
+
+    setWarning(temp);
+    return true;
+  };
+
   const onSubmit = () => {
-    axios
-      .post<LoginResponseType>(`${process.env.REACT_APP_BASE_URL}/bmw`, {
-        email: loginState.email,
-        password: loginState.password,
-      })
-      .then((response) => {
-        C.setCookie("accessToken", response.data.accessToken, {
-          path: "/",
-          secure: true,
-          sameSite: "none",
+    if (validateForm())
+      axios
+        .post<LoginResponseType>(`${process.env.REACT_APP_BASE_URL}/bmw`, {
+          email: loginState.email,
+          password: loginState.password,
+        })
+        .then((response) => {
+          C.setCookie("accessToken", response.data.accessToken, {
+            path: "/",
+            secure: true,
+            sameSite: "none",
+          });
+          C.setCookie("refreshToken", response.data.refreshToken, {
+            path: "/",
+            secure: true,
+            sameSite: "none",
+          });
+          alert("성공적으로 로그인이 완료되었습니다.");
+          setModalState({
+            title: "",
+            modalContents: null,
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+          alert("알 수 없는 오류가 발생하였습니다.");
         });
-        C.setCookie("refreshToken", response.data.refreshToken, {
-          path: "/",
-          secure: true,
-          sameSite: "none",
-        });
-        alert("성공적으로 로그인이 완료되었습니다.");
-        setModalState({
-          title: "",
-          modalContents: null,
-        });
-      })
-      .catch(function (error) {
-        console.error(error);
-        alert("알 수 없는 오류가 발생하였습니다.");
-      });
   };
 
   return (
