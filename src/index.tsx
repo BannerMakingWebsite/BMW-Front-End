@@ -28,8 +28,8 @@ import { useEffect, useState } from "react";
 function App() {
   const queryClient = new QueryClient();
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
-  const [size] = useRecoilState(BoardSizeState);
-  const [saveTime] = useRecoilState(AutoSaveState);
+  const [size, setSize] = useRecoilState(BoardSizeState);
+  const [saveTime, setTime] = useRecoilState(AutoSaveState);
   const [clearid, setId] = useState<NodeJS.Timer>();
   const [elementList, setElementList] = useRecoilState(ElementListState);
   const beforeUnloadListener = (event: BeforeUnloadEvent) => {
@@ -38,6 +38,17 @@ function App() {
   };
 
   useEffect(() => {
+    const data = window.localStorage.getItem("BMW-element-data");
+    const boardsize = window.localStorage.getItem("BMW-board-size");
+    const autosaveTerm = window.localStorage.getItem("BMW-autosave-term");
+    if (JSON.parse(autosaveTerm)) {
+      setTime(JSON.parse(autosaveTerm));
+    }
+    setSize(JSON.parse(boardsize));
+    if (data) {
+      setElementList(JSON.parse(data));
+    }
+
     addEventListener("beforeunload", beforeUnloadListener, { capture: true });
     return () => {
       removeEventListener("beforeunload", beforeUnloadListener, {
@@ -49,11 +60,17 @@ function App() {
   const list = elementList;
 
   const saveData = () => {
-    console.log(list);
-    window.localStorage.setItem(
-      "BMW-element-data",
-      JSON.stringify(elementList)
-    );
+    if (elementList) {
+      window.localStorage.setItem(
+        "BMW-element-data",
+        JSON.stringify(elementList)
+      );
+      window.localStorage.setItem("BMW-board-size", JSON.stringify(size));
+      window.localStorage.setItem(
+        "BMW-autosave-term",
+        JSON.stringify(saveTime)
+      );
+    }
   };
 
   useEffect(() => {
@@ -62,7 +79,7 @@ function App() {
       saveData();
     }, saveTime * 60000);
     setId(AutoSave);
-  }, [saveTime, elementList]);
+  }, [saveTime, elementList, size]);
 
   return (
     <QueryClientProvider client={queryClient}>

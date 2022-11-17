@@ -18,7 +18,7 @@ function OptionWithRange({ onChange, value }: Props) {
         min={0}
         max={100}
         step={0}
-        value={value}
+        value={value ? value : ""}
         onChange={(e) => {
           onChange(e);
         }}

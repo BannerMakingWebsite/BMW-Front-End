@@ -35,9 +35,9 @@ function OptionWithDropdown<T extends string>({
         {isOpen && (
           <DropList>
             {items.map(
-              (val) =>
+              (val, idx) =>
                 val != value && (
-                  <div onClick={() => onChange(val)}>
+                  <div onClick={() => onChange(val)} key={idx}>
                     <p>{val}</p>
                   </div>
                 )
