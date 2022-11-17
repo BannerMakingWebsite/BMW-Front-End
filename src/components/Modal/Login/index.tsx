@@ -6,15 +6,85 @@ import { useRecoilState } from "recoil";
 import { modalStateAtom } from "../../../atoms/modalState";
 import ModalContentsRegister from "../register";
 import ModalContentsVerifyEmail from "../verifyEmail";
+import axios from "axios";
+import { LoginResponseType } from "../../../assets/types/login/response";
+import { useState } from "react";
+import { LoginRequestType } from "../../../assets/types/login/request";
+import * as C from "../../../assets/constants/cookie";
 
 function ModalContentsLogin() {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
 
+  const [loginState, setLoginState] = useState<LoginRequestType>({
+    email: "",
+    password: "",
+  });
+  const [warning, setWarning] = useState<LoginRequestType>({
+    email: "",
+    password: "",
+  });
+
+  const onSubmit = () => {
+    axios
+      .post<LoginResponseType>(`${process.env.REACT_APP_BASE_URL}/bmw`, {
+        email: loginState.email,
+        password: loginState.password,
+      })
+      .then((response) => {
+        C.setCookie("accessToken", response.data.accessToken, {
+          path: "/",
+          secure: true,
+          sameSite: "none",
+        });
+        C.setCookie("refreshToken", response.data.refreshToken, {
+          path: "/",
+          secure: true,
+          sameSite: "none",
+        });
+        alert("성공적으로 로그인이 완료되었습니다.");
+        setModalState({
+          title: "",
+          modalContents: null,
+        });
+      })
+      .catch(function (error) {
+        console.error(error);
+        alert("알 수 없는 오류가 발생하였습니다.");
+      });
+  };
+
   return (
     <>
-      <Background>
-        <ModalInput type="big" label="이메일" id="email" />
-        <ModalInput type="password" label="비밀번호" id="pw" />
+      <Background
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
+        <ModalInput
+          type="big"
+          label="이메일"
+          id="email"
+          value={loginState.email}
+          warning={warning.email}
+          onChange={(value) => {
+            let temp: LoginRequestType = Object.assign({}, loginState);
+            temp.email = value;
+            setLoginState(temp);
+          }}
+        />
+        <ModalInput
+          type="password"
+          label="비밀번호"
+          id="pw"
+          value={loginState.password}
+          warning={warning.password}
+          onChange={(value) => {
+            let temp: LoginRequestType = Object.assign({}, loginState);
+            temp.password = value;
+            setLoginState(temp);
+          }}
+        />
         <ModalInput type="checkbox" label="아이디 기억" id="remember" />
         <Button type="big" label="로그인" />
         <Button type="googleLogin" />
