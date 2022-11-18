@@ -1,33 +1,36 @@
+import axios from "axios";
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { patchMyPage } from "../../apis/patchMyPage";
+import { getCookie } from "../../assets/constants/cookie";
 import { pxToRem } from "../../assets/constants/pxToRem";
 import { readFile } from "../../assets/constants/readFile";
 import { MyPageIcons } from "../../assets/images";
+import { UserType } from "../../assets/types/userType";
 import { modalStateAtom } from "../../atoms/modalState";
-import ModalContentsResetPassword from "../Modal/resetPassword";
+import { userStateAtom } from "../../atoms/userState";
 import ModalContentsVerifyEmail from "../Modal/verifyEmail";
 
 const MyInfo = () => {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const [userState, setUserState] = useRecoilState(userStateAtom);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
 
-  const [username, setUsername] = useState<string>("");
-  const [profilePicture, setProfilePicture] = useState<string | ArrayBuffer>();
   const [editState, setEditState] = useState<boolean>(false);
 
   return (
     <>
       <Wrapper>
-        <ImageWrapper pfp={profilePicture}>
+        <ImageWrapper pfp={userState.imageUrl}>
           <input
             ref={fileRef}
             id="img"
             type="file"
             accept="image/*"
-            onChange={() => readFile(fileRef, setProfilePicture)}
+            onChange={() => readFile(fileRef, userState, setUserState)}
           />
           <label htmlFor="img">이미지 변경</label>
         </ImageWrapper>
@@ -36,27 +39,37 @@ const MyInfo = () => {
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
-                if (nameInputRef.current.value != "")
-                  setUsername(nameInputRef.current.value);
+                if (nameInputRef.current.value != "") {
+                  let temp: UserType = Object.assign({}, userState);
+                  temp.name = nameInputRef.current.value;
+                  setUserState(temp);
+                  patchMyPage({
+                    imageUrl: userState.imageUrl,
+                    name: nameInputRef.current.value,
+                  });
+                }
                 setEditState(!editState);
               }}
             >
-              <input
-                ref={nameInputRef}
-                defaultValue={username}
-                maxLength={10}
-              />
+              <input ref={nameInputRef} defaultValue={userState.name} />
             </form>
           ) : (
-            <h2>{username}</h2>
+            <h2>{userState.name}</h2>
           )}
           <img
             src={MyPageIcons.Edit}
             alt="edit"
             onClick={() => {
               setEditState(!editState);
-              if (nameInputRef.current.value != "")
-                setUsername(nameInputRef.current.value);
+              if (nameInputRef.current.value != "") {
+                let temp: UserType = Object.assign({}, userState);
+                temp.name = nameInputRef.current.value;
+                setUserState(temp);
+                patchMyPage({
+                  imageUrl: userState.imageUrl,
+                  name: nameInputRef.current.value,
+                });
+              }
               setEditState(!editState);
             }}
           />
@@ -106,6 +119,8 @@ const ImageWrapper = styled.div<ImageWrapperProps>`
 
   input {
     position: absolute;
+
+    width: 100%;
 
     display: none;
   }
@@ -179,6 +194,11 @@ const NameWrapper = styled.div`
   }
 
   > h2 {
+    width: 100%;
+
+    text-align: center;
+    word-break: break-all;
+
     color: ${({ theme }) => theme.colors.white};
     font-size: ${({ theme }) => theme.fontSizes.subTitle};
   }

@@ -1,6 +1,11 @@
+import { SetterOrUpdater } from "recoil";
+import { patchMyPage } from "../../apis/patchMyPage";
+import { UserType } from "../types/userType";
+
 export const readFile = (
   refObj: React.MutableRefObject<HTMLInputElement>,
-  setState: React.Dispatch<React.SetStateAction<string | ArrayBuffer>>
+  userState: UserType,
+  setState: SetterOrUpdater<UserType>
 ) => {
   const fReader = new FileReader();
   if (refObj.current && refObj.current.files)
@@ -10,7 +15,11 @@ export const readFile = (
       return;
     }
   fReader.onloadend = (event: ProgressEvent<FileReader>) => {
-    if (event && event.target && event.target.result)
-      setState(event.target.result);
+    if (event && event.target && event.target.result) {
+      let temp: UserType = Object.assign({}, userState);
+      temp.imageUrl = event.target.result;
+      setState(temp);
+      patchMyPage({ imageUrl: event.target.result, name: userState.name });
+    }
   };
 };
