@@ -7,10 +7,18 @@ import { ModalIcons } from "../../../assets/images";
 import { CaptureRefState } from "../../../atoms/elementState";
 import { modalStateAtom } from "../../../atoms/modalState";
 import Button from "../button";
+import { jsPDF } from "jspdf";
 
 function ModalContentsTemplateExportMethod() {
   const [, setModalState] = useRecoilState(modalStateAtom);
   const [ref] = useRecoilState(CaptureRefState);
+  const [preview, setPerview] = useState<string>("");
+  useEffect(() => {
+    html2canvas(ref.current).then((canvas) => {
+      const imgData: any = canvas.toDataURL("image/png");
+      setPerview(imgData);
+    });
+  }, []);
 
   const handleDownloadImage = async (
     printRef: React.MutableRefObject<any>,
@@ -19,12 +27,10 @@ function ModalContentsTemplateExportMethod() {
     const element = printRef.current;
     const canvas = await html2canvas(element);
     const data = canvas.toDataURL(`image/${fileType}`);
-    console.log(data);
     const link = document.createElement("a");
     if (typeof link.download === "string") {
       link.href = data;
       link.download = `image.${fileType}`;
-      console.log(link.download);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -36,11 +42,9 @@ function ModalContentsTemplateExportMethod() {
   const handleCopy = () => {
     html2canvas(ref.current).then((canvas) =>
       canvas.toBlob((blob) => {
-        //캔버스 이미지 blob 데이터로 변환 //2
         navigator.clipboard.write([
-          //3
           new ClipboardItem({
-            "image/png": blob, //<- 복사할 blob 데이터
+            "image/png": blob,
           }),
         ]);
       })
@@ -48,12 +52,19 @@ function ModalContentsTemplateExportMethod() {
     alert("복사되었습니다.");
   };
 
+  const imageToPdf = () => {
+    const input = document.getElementById("divToPrint");
+
+    html2canvas(input).then((canvas) => {
+      const imgData: any = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "pt", "a4");
+      pdf.save("download.pdf");
+    });
+  };
+
   return (
     <Background>
-      <BannerImage
-        alt="banner-image"
-        src="https://cdn.dribbble.com/users/1625099/screenshots/14580528/media/d4535805429570af166acbd939358209.png?compress=1&resize=400x300"
-      />
+      <BannerImage alt="banner-image" src={preview} />
       <div>
         <Wrapper>
           <Card onClick={() => handleDownloadImage(ref, "jpg")}>
