@@ -26,7 +26,7 @@ const GoogleLoginButton = () => {
         secure: true,
         sameSite: "none",
       });
-      C.setCookie("expireDate", Date.now() + 3600, {
+      C.setCookie("expireDate", Date.now() + 1000 * 60 * 30, {
         path: "/",
         secure: true,
         sameSite: "none",

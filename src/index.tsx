@@ -24,18 +24,61 @@ import ElementListState, {
   BoardSizeState,
 } from "./atoms/elementState";
 import { useEffect, useState } from "react";
+import * as C from "./assets/constants/cookie";
+import axios from "axios";
+import { userStateAtom } from "./atoms/userState";
 
 function App() {
   const queryClient = new QueryClient();
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const [userState, setUserState] = useRecoilState(userStateAtom);
   const [size, setSize] = useRecoilState(BoardSizeState);
   const [saveTime, setTime] = useRecoilState(AutoSaveState);
   const [clearid, setId] = useState<NodeJS.Timer>();
   const [elementList, setElementList] = useRecoilState(ElementListState);
-  const beforeUnloadListener = (event: BeforeUnloadEvent) => {
-    event.preventDefault();
-    return (event.returnValue = "Are you sure you want to exit?");
-  };
+  // const beforeUnloadListener = (event: BeforeUnloadEvent) => {
+  //   event.preventDefault();
+  //   return (event.returnValue = "Are you sure you want to exit?");
+  // };
+
+  useEffect(() => {
+    const accessToken = C.getCookie("accessToken");
+    const refreshToken = C.getCookie("refreshToken");
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/mypage`, {
+          headers: { Authorization: `${accessToken}` },
+        })
+        .then((response) => {
+          console.log(response);
+          setUserState(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          if (error.response.status === 401) {
+            axios
+              .put(
+                `${process.env.REACT_APP_BASE_URL}/newAccess`,
+                { accessToken: accessToken, refreshToken: refreshToken },
+                { headers: { Authorization: "" } }
+              )
+              .then((response) => {
+                console.log(response);
+                C.setCookie("accessToken", response.data.accessToken, {
+                  path: "/",
+                  secure: true,
+                  sameSite: "none",
+                });
+                C.setCookie("refreshToken", response.data.refreshToken, {
+                  path: "/",
+                  secure: true,
+                  sameSite: "none",
+                });
+              });
+          }
+        });
+    }
+  }, []);
 
   useEffect(() => {
     const data = window.localStorage.getItem("BMW-element-data");
@@ -49,12 +92,12 @@ function App() {
       setElementList(JSON.parse(data));
     }
 
-    addEventListener("beforeunload", beforeUnloadListener, { capture: true });
-    return () => {
-      removeEventListener("beforeunload", beforeUnloadListener, {
-        capture: true,
-      });
-    };
+    // addEventListener("beforeunload", beforeUnloadListener, { capture: true });
+    // return () => {
+    //   removeEventListener("beforeunload", beforeUnloadListener, {
+    //     capture: true,
+    //   });
+    //};
   }, []);
 
   const list = elementList;
@@ -99,7 +142,6 @@ function App() {
               <Route path="/image" element={<ImageTab />} />
               <Route path="/figure" element={<FigureTab />} />
               <Route path="/account" element={<MyPageTab />} />
-              <Route path="/login" element={<LoginTab />} />
               <Route path="/setting" element={<SettingTab />} />
               <Route path="/edit/figure" element={<EditFigureTab />} />
               <Route path="/edit/text" element={<EditTextTab />} />

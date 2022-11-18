@@ -1,9 +1,14 @@
 import { TemplateInfoTypes } from "./templateInfoType";
 
 export interface UserType {
-  username: string;
+  id: number;
+  designs: any[];
+  goods: any[];
+  bookmarks: any[];
+  comments: any[];
+  posts: any[];
   email: string;
-  pfp: string;
-  uploads: TemplateInfoTypes[];
-  favorites: TemplateInfoTypes[];
+  name: string;
+  imageUrl: any;
+  authority: string;
 }
