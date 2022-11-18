@@ -1,9 +1,7 @@
-import axios from "axios";
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { patchMyPage } from "../../apis/patchMyPage";
-import { getCookie } from "../../assets/constants/cookie";
 import { pxToRem } from "../../assets/constants/pxToRem";
 import { readFile } from "../../assets/constants/readFile";
 import { MyPageIcons } from "../../assets/images";

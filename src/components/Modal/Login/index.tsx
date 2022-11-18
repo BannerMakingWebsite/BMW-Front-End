@@ -11,9 +11,12 @@ import { LoginResponseType } from "../../../assets/types/login/response";
 import { useState } from "react";
 import { LoginRequestType } from "../../../assets/types/login/request";
 import * as C from "../../../assets/constants/cookie";
+import { loadUser } from "../../../apis/loadUser";
+import { userStateAtom } from "../../../atoms/userState";
 
 function ModalContentsLogin() {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const [userState, setUserState] = useRecoilState(userStateAtom);
 
   const [loginState, setLoginState] = useState<LoginRequestType>({
     email: "",
@@ -73,6 +76,7 @@ function ModalContentsLogin() {
             secure: true,
             sameSite: "none",
           });
+          loadUser(setUserState);
           alert("성공적으로 로그인이 완료되었습니다.");
           setModalState({
             title: "",
