@@ -9,6 +9,7 @@ import { UserType } from "../../assets/types/userType";
 import { modalStateAtom } from "../../atoms/modalState";
 import { userStateAtom } from "../../atoms/userState";
 import ModalContentsVerifyEmail from "../Modal/verifyEmail";
+import ModalContentsVerifyPassword from "../Modal/verifyPassword";
 
 const MyInfo = () => {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
@@ -86,7 +87,7 @@ const MyInfo = () => {
           onClick={() =>
             setModalState({
               title: "회원 탈퇴",
-              modalContents: <ModalContentsVerifyEmail />,
+              modalContents: <ModalContentsVerifyPassword />,
             })
           }
         >
