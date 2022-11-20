@@ -55,8 +55,6 @@ function ModalContentsVerifyEmail() {
 
   const onSubmit = () => {
     if (validateForm()) {
-      console.log(emailState.email);
-      console.log(emailState.authKey);
       axios
         .get(`${process.env.REACT_APP_BASE_URL}/passwordConfirm`, {
           params: { email: emailState.email, authKey: emailState.authKey },
@@ -70,8 +68,15 @@ function ModalContentsVerifyEmail() {
           });
         })
         .catch(function (error) {
-          console.error(error);
-          alert("이메일 인증에 실패하였습니다.");
+          let temp: EmailStateType = Object.assign({}, warning);
+          if (error.response.status === 404) {
+            temp.email = "해당 이메일로 가입된 계정이 존재하지 않습니다.";
+            setWarning(temp);
+          } else if (error.response.status === 401) {
+            temp.email = "인증 코드가 일치하지 않습니다.";
+            setWarning(temp);
+          } else alert("알 수 없는 오류가 발생하였습니다.");
+
           return;
         });
     }
