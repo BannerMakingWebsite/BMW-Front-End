@@ -50,7 +50,7 @@ function ModalContentsRegister() {
 
     if (
       !String(signUpState.password).match(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,24}$/
       )
     ) {
       temp.password = "비밀번호 형식이 올바르지 않습니다.";
@@ -101,14 +101,24 @@ function ModalContentsRegister() {
               });
             })
             .catch(function (error) {
-              console.error(error);
+              let temp: SignUpStateRequestType = Object.assign({}, warning);
               alert("알 수 없는 오류가 발생하였습니다.");
+
               return;
             });
         })
         .catch(function (error) {
-          console.error(error);
-          alert("이메일 인증에 실패하였습니다.");
+          let temp: SignUpStateRequestType = Object.assign({}, warning);
+          if (error.response.status === 404) {
+            temp.email = "이메일이 인증되지 않았습니다.";
+            temp.password = "";
+            setWarning(temp);
+          } else if (error.response.status === 401) {
+            temp.email = "인증 코드가 일치하지 않습니다.";
+            temp.password = "";
+            setWarning(temp);
+          } else alert("알 수 없는 오류가 발생하였습니다.");
+
           return;
         });
   };
