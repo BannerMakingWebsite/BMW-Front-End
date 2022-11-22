@@ -2,7 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import * as C from "../../../assets/constants/cookie";
 import { modalStateAtom } from "../../../atoms/modalState";
+import { userStateAtom } from "../../../atoms/userState";
 import Button from "../button";
 import ModalInput from "../input";
 import ModalContentsLogin from "../login";
@@ -20,6 +22,7 @@ function ModalContentsResetPassword({
   email,
 }: ModalContentsResetPasswordProps) {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const [userState, setUserState] = useRecoilState(userStateAtom);
 
   const [passwordState, setPasswordState] = useState<PasswordStateType>({
     password: "",
@@ -41,7 +44,7 @@ function ModalContentsResetPassword({
 
     if (
       !String(passwordState.password).match(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,24}$/
       )
     ) {
       temp.password = "비밀번호 형식이 올바르지 않습니다.";
@@ -67,6 +70,33 @@ function ModalContentsResetPassword({
           newPassword: passwordState.password,
         })
         .then(function () {
+          C.setCookie("accessToken", -1, {
+            path: "/",
+            secure: true,
+            sameSite: "none",
+          });
+          C.setCookie("refreshToken", -1, {
+            path: "/",
+            secure: true,
+            sameSite: "none",
+          });
+          C.setCookie("expireDate", -1, {
+            path: "/",
+            secure: true,
+            sameSite: "none",
+          });
+          setUserState({
+            id: 0,
+            designs: [],
+            goods: [],
+            bookmarks: [],
+            comments: [],
+            posts: [],
+            email: "",
+            name: "",
+            imageUrl: null,
+            authority: "",
+          });
           alert("성공적으로 비밀번호 재설정이 완료되었습니다.");
           setModalState({
             title: "로그인",

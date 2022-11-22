@@ -1,9 +1,7 @@
-import axios from "axios";
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { patchMyPage } from "../../apis/patchMyPage";
-import { getCookie } from "../../assets/constants/cookie";
 import { pxToRem } from "../../assets/constants/pxToRem";
 import { readFile } from "../../assets/constants/readFile";
 import { MyPageIcons } from "../../assets/images";
@@ -11,6 +9,7 @@ import { UserType } from "../../assets/types/userType";
 import { modalStateAtom } from "../../atoms/modalState";
 import { userStateAtom } from "../../atoms/userState";
 import ModalContentsVerifyEmail from "../Modal/verifyEmail";
+import ModalContentsVerifyPassword from "../Modal/verifyPassword";
 
 const MyInfo = () => {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
@@ -88,7 +87,7 @@ const MyInfo = () => {
           onClick={() =>
             setModalState({
               title: "회원 탈퇴",
-              modalContents: <ModalContentsVerifyEmail />,
+              modalContents: <ModalContentsVerifyPassword />,
             })
           }
         >

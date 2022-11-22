@@ -1,12 +1,12 @@
 import axios from "axios";
 import { getCookie } from "../assets/constants/cookie";
 
-interface PatchMyPage {
+interface PatchMyPageProps {
   imageUrl?: string | ArrayBuffer;
   name?: string;
 }
 
-export const patchMyPage = ({ imageUrl, name }: PatchMyPage) => {
+export const patchMyPage = ({ imageUrl, name }: PatchMyPageProps) => {
   axios
     .patch(
       `${process.env.REACT_APP_BASE_URL}/mypage`,

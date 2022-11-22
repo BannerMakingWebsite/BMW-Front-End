@@ -16,7 +16,6 @@ import MyPageTab from "./components/Sidebar/myPageTab";
 import FigureTab from "./components/Sidebar/figureTab";
 import ImageTab from "./components/Sidebar/imageTab";
 import TemplateTab from "./components/Sidebar/templateTab";
-import LoginTab from "./components/Sidebar/loginTab";
 import Modal from "./components/Modal";
 import { modalStateAtom } from "./atoms/modalState";
 import ElementListState, {
@@ -27,6 +26,7 @@ import { useEffect, useState } from "react";
 import * as C from "./assets/constants/cookie";
 import axios from "axios";
 import { userStateAtom } from "./atoms/userState";
+import { loadUser } from "./apis/loadUser";
 
 function App() {
   const queryClient = new QueryClient();
@@ -42,42 +42,7 @@ function App() {
   // };
 
   useEffect(() => {
-    const accessToken = C.getCookie("accessToken");
-    const refreshToken = C.getCookie("refreshToken");
-    if (accessToken) {
-      axios
-        .get(`${process.env.REACT_APP_BASE_URL}/mypage`, {
-          headers: { Authorization: `${accessToken}` },
-        })
-        .then((response) => {
-          console.log(response);
-          setUserState(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-          if (error.response.status === 401) {
-            axios
-              .put(
-                `${process.env.REACT_APP_BASE_URL}/newAccess`,
-                { accessToken: accessToken, refreshToken: refreshToken },
-                { headers: { Authorization: "" } }
-              )
-              .then((response) => {
-                console.log(response);
-                C.setCookie("accessToken", response.data.accessToken, {
-                  path: "/",
-                  secure: true,
-                  sameSite: "none",
-                });
-                C.setCookie("refreshToken", response.data.refreshToken, {
-                  path: "/",
-                  secure: true,
-                  sameSite: "none",
-                });
-              });
-          }
-        });
-    }
+    loadUser(setUserState);
   }, []);
 
   useEffect(() => {

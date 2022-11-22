@@ -11,9 +11,12 @@ import { LoginResponseType } from "../../../assets/types/login/response";
 import { useState } from "react";
 import { LoginRequestType } from "../../../assets/types/login/request";
 import * as C from "../../../assets/constants/cookie";
+import { loadUser } from "../../../apis/loadUser";
+import { userStateAtom } from "../../../atoms/userState";
 
 function ModalContentsLogin() {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const [userState, setUserState] = useRecoilState(userStateAtom);
 
   const [loginState, setLoginState] = useState<LoginRequestType>({
     email: "",
@@ -73,6 +76,7 @@ function ModalContentsLogin() {
             secure: true,
             sameSite: "none",
           });
+          loadUser(setUserState);
           alert("성공적으로 로그인이 완료되었습니다.");
           setModalState({
             title: "",
@@ -80,8 +84,18 @@ function ModalContentsLogin() {
           });
         })
         .catch(function (error) {
-          console.error(error);
-          alert("알 수 없는 오류가 발생하였습니다.");
+          let temp: LoginRequestType = Object.assign({}, warning);
+          if (error.response.status === 404) {
+            temp.email = "해당 이메일로 가입된 계정이 존재하지 않습니다.";
+            temp.password = "";
+          } else if (error.response.status === 401) {
+            temp.password = "비밀번호가 일치하지 않습니다.";
+            temp.email = "";
+          } else {
+            alert("알 수 없는 오류가 발생하였습니다.");
+            return;
+          }
+          setWarning(temp);
         });
   };
 
