@@ -11,4 +11,5 @@ export interface UserType {
   name: string;
   imageUrl: any;
   authority: string;
+  loginType: string;
 }

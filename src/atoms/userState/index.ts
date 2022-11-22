@@ -14,5 +14,6 @@ export const userStateAtom = atom<UserType>({
     name: "",
     imageUrl: null,
     authority: "",
+    loginType: "",
   },
 });

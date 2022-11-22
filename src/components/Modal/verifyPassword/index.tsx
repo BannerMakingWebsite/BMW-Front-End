@@ -43,11 +43,6 @@ function ModalContentsVerifyPassword() {
             secure: true,
             sameSite: "none",
           });
-          C.setCookie("expireDate", -1, {
-            path: "/",
-            secure: true,
-            sameSite: "none",
-          });
           setUserState({
             id: 0,
             designs: [],
@@ -59,6 +54,7 @@ function ModalContentsVerifyPassword() {
             name: "",
             imageUrl: null,
             authority: "",
+            loginType: "",
           });
           alert("성공적으로 회원 탈퇴가 완료되었습니다.");
           setModalState({

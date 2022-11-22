@@ -76,7 +76,8 @@ function ModalContentsLogin() {
             secure: true,
             sameSite: "none",
           });
-          loadUser(setUserState);
+          loadUser(setUserState, "bmw");
+          localStorage.setItem("BMW-last-login-type", "bmw");
           alert("성공적으로 로그인이 완료되었습니다.");
           setModalState({
             title: "",
@@ -92,9 +93,11 @@ function ModalContentsLogin() {
             temp.password = "비밀번호가 일치하지 않습니다.";
             temp.email = "";
           } else {
+            console.error(error);
             alert("알 수 없는 오류가 발생하였습니다.");
             return;
           }
+
           setWarning(temp);
         });
   };
