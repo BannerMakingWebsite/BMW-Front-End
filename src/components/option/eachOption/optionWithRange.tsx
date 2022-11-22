@@ -15,7 +15,7 @@ function OptionWithRange({ onChange, value }: Props) {
     <>
       <RangeBar
         type="range"
-        min={0}
+        min={1}
         max={100}
         step={0}
         value={value ? value : ""}
