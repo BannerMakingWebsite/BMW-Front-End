@@ -40,7 +40,6 @@ function Board({ height, width }: Props) {
 export default Board;
 
 const TotalWrapper = styled.div<{ width: number; height: number }>`
-  border: 1px solid black;
   aspect-ratio: ${(props) => props.width + "/" + props.height};
   max-width: 1000px;
   max-height: 800px;

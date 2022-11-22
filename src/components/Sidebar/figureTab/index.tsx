@@ -12,9 +12,10 @@ function FigureTab() {
   const [elementList, setElementList] = useRecoilState(ElementListState);
 
   const getNewFigure = (type: string): TextDataType | FigureDataType => {
+    const id = self.crypto.randomUUID();
     if (type != "text")
       return {
-        id: self.crypto.randomUUID(),
+        id: id,
         type: type,
         height: 100,
         width: 100,
@@ -26,10 +27,10 @@ function FigureTab() {
         borderColor: "black",
         opacity: 100,
         shadowColor: "",
-        rotate: 0,
+        rotate: 50,
       };
     return {
-      id: self.crypto.randomUUID(),
+      id: id,
       type: "text",
       width: 100,
       height: 100,
@@ -51,7 +52,7 @@ function FigureTab() {
       shadowDistance: 0,
       shadowOpacity: 0,
       value: "텍스트를 입력하세요.",
-      rotate: 0,
+      rotate: 50,
     };
   };
 

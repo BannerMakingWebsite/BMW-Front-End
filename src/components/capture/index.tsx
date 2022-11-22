@@ -45,7 +45,6 @@ function Capture({ children }: Props) {
 export default Capture;
 
 const Wrapper = styled.div<{ width: number; height: number }>`
-  border: 1px solid black;
   position: absolute;
   aspect-ratio: ${(props) => props.width + "/" + props.height};
   max-width: 1000px;

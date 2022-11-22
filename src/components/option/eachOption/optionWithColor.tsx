@@ -79,7 +79,6 @@ const XLine = styled.div`
 `;
 
 const PickerWrapper = styled.div`
-  border: 1px solid black;
   position: absolute;
   left: ${pxToRem(60)}rem;
   top: ${pxToRem(0)}rem;
