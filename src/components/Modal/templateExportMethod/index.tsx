@@ -27,6 +27,7 @@ function ModalContentsTemplateExportMethod() {
     const element = printRef.current;
     const canvas = await html2canvas(element);
     const data = canvas.toDataURL(`image/${fileType}`);
+    console.log(data);
     const link = document.createElement("a");
     if (typeof link.download === "string") {
       link.href = data;
@@ -52,14 +53,18 @@ function ModalContentsTemplateExportMethod() {
     alert("복사되었습니다.");
   };
 
-  const imageToPdf = () => {
-    const input = document.getElementById("divToPrint");
+  const handleDownloadPdf = async () => {
+    const element = ref.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL("image/png");
 
-    html2canvas(input).then((canvas) => {
-      const imgData: any = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "pt", "a4");
-      pdf.save("download.pdf");
-    });
+    const pdf = new jsPDF();
+    const imgProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+
+    pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("print.pdf");
   };
 
   return (
@@ -75,7 +80,7 @@ function ModalContentsTemplateExportMethod() {
             <img alt="PNG-method" src={ModalIcons.PNG} />
             <h1>.png 형식</h1>
           </Card>
-          <Card onClick={() => handleDownloadImage(ref, "pdf")}>
+          <Card onClick={() => handleDownloadPdf()}>
             <img alt="PDF-method" src={ModalIcons.PDF} />
             <h1>.pdf 형식</h1>
           </Card>
