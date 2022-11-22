@@ -75,7 +75,10 @@ function ModalContentsVerifyEmail() {
           } else if (error.response.status === 401) {
             temp.email = "인증 코드가 일치하지 않습니다.";
             setWarning(temp);
-          } else alert("알 수 없는 오류가 발생하였습니다.");
+          } else {
+            console.error(error);
+            alert("알 수 없는 오류가 발생하였습니다.");
+          }
 
           return;
         });

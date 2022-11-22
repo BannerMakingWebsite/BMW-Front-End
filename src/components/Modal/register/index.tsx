@@ -101,7 +101,7 @@ function ModalContentsRegister() {
               });
             })
             .catch(function (error) {
-              let temp: SignUpStateRequestType = Object.assign({}, warning);
+              console.error(error);
               alert("알 수 없는 오류가 발생하였습니다.");
 
               return;
@@ -117,7 +117,10 @@ function ModalContentsRegister() {
             temp.email = "인증 코드가 일치하지 않습니다.";
             temp.password = "";
             setWarning(temp);
-          } else alert("알 수 없는 오류가 발생하였습니다.");
+          } else {
+            console.error(error);
+            alert("알 수 없는 오류가 발생하였습니다.");
+          }
 
           return;
         });
