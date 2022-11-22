@@ -108,6 +108,7 @@ const Wrapper = styled.div<{
   shadowDirection: number;
   shadowDistance: number;
   shadowOpacity: number;
+  rotate:number;
 }>`
   width: 100%;
   height: 100%;
@@ -136,6 +137,8 @@ const Wrapper = styled.div<{
         (props.shadowOpacity + "px ") +
         props.shadowColor
       : ""};
+        transform: rotate(${(props) => props.rotate - 50}deg);
+
 `;
 
 const TextMode = styled.pre`

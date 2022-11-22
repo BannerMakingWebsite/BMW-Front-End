@@ -27,6 +27,7 @@ const Wrapper = styled.div<{
   borderColor: string;
   opacity: number;
   shadowColor: string;
+  rotate: number;
 }>`
   width: 100%;
   height: 100%;
@@ -40,4 +41,5 @@ const Wrapper = styled.div<{
       ? `box-shadow: ${pxToRem(5)}rem ${pxToRem(5)}rem ${pxToRem(5)}rem
     ${props.shadowColor}`
       : ""};
+  transform: rotate(${(props) => props.rotate - 50}deg);
 `;

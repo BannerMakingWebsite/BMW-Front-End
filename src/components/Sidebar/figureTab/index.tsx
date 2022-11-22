@@ -26,6 +26,7 @@ function FigureTab() {
         borderColor: "black",
         opacity: 100,
         shadowColor: "",
+        rotate: 0,
       };
     return {
       id: self.crypto.randomUUID(),
@@ -50,6 +51,7 @@ function FigureTab() {
       shadowDistance: 0,
       shadowOpacity: 0,
       value: "텍스트를 입력하세요.",
+      rotate: 0,
     };
   };
 

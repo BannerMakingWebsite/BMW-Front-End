@@ -13,7 +13,7 @@ function Square({ width, height, posX, posY, ...props }: FigureDataType) {
   const id = props.id;
   const type = props.type;
   return (
-    <ElementWrapper props={{ ...SizeProps, id,type  }}>
+    <ElementWrapper props={{ ...SizeProps, id, type }}>
       <Wrapper {...props}></Wrapper>
     </ElementWrapper>
   );
@@ -26,6 +26,7 @@ const Wrapper = styled.div<{
   borderColor: string;
   opacity: number;
   shadowColor: string;
+  rotate: number;
 }>`
   width: 100%;
   height: 100%;
@@ -39,4 +40,5 @@ const Wrapper = styled.div<{
       ? `box-shadow: ${pxToRem(5)}rem ${pxToRem(5)}rem ${pxToRem(5)}rem
     ${props.shadowColor}`
       : ""};
+  transform: rotate(${(props) => props.rotate - 50}deg);
 `;

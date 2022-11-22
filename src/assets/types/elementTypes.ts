@@ -11,6 +11,7 @@ export interface FigureDataType {
   color: string;
   borderColor: string;
   shadowColor: string;
+  rotate: number;
 }
 
 export type TextStyleType = (
@@ -44,4 +45,5 @@ export interface TextDataType {
   shadowDistance: number;
   shadowOpacity: number;
   value: string;
+  rotate: number;
 }

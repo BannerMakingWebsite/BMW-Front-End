@@ -52,6 +52,13 @@ function EditFigureTab() {
       )
     );
   };
+  const setRotation = (rotate = curElement.rotate) => {
+    setElementList(
+      elementList.map((value) =>
+        value.id == curElementId ? { ...value, rotate: rotate } : value
+      )
+    );
+  };
   const curIdx: number = elementList.indexOf(curElement);
   const changeArrayOrder = function (
     list: (FigureDataType | TextDataType)[],
@@ -93,7 +100,6 @@ function EditFigureTab() {
         onChange={(e) => {
           const value = Number(e.currentTarget.value);
           setOpacity(value);
-          console.log(curElement?.opacity);
         }}
       />
       <SetOption.Color
@@ -116,6 +122,14 @@ function EditFigureTab() {
         onChange={(value) => {
           setShadowColor(value);
         }}
+      />
+      <SetOption.Range
+        name="각도"
+        onChange={(e) => {
+          const value = Number(e.currentTarget.value);
+          setRotation(value);
+        }}
+        value={curElement?.rotate}
       />
     </TotalWrapper>
   );

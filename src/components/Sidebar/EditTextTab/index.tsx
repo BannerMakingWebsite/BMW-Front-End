@@ -119,6 +119,13 @@ function EditTextTab() {
       )
     );
   };
+  const setRotation = (rotate = curElement.rotate) => {
+    setElementList(
+      elementList.map((value) =>
+        value.id == curElementId ? { ...value, rotate: rotate } : value
+      )
+    );
+  };
   const curIdx: number = elementList.indexOf(curElement);
   const changeArrayOrder = function (
     list: (FigureDataType | TextDataType)[],
@@ -292,6 +299,14 @@ function EditTextTab() {
           onChange={(e) => {
             setShadowOpacity(Number(e.currentTarget.value));
           }}
+        />
+        <SetOption.Range
+          name="각도"
+          onChange={(e) => {
+            const value = Number(e.currentTarget.value);
+            setRotation(value);
+          }}
+          value={curElement?.rotate}
         />
       </ContentWrapper>
     </TotalWrapper>
