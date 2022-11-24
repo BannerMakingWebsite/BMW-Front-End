@@ -9,4 +9,6 @@ export interface TemplateInfoTypes {
   like: number;
   favorite: number;
   comments: CommentType[];
+  preview?:string;
+  onSubmit?:()=>void;
 }

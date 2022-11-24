@@ -1,5 +1,8 @@
+import { useEffect } from "react";
+import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { getMyList, getTemplateList } from "../../../apis/getTemplate";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { userStateAtom } from "../../../atoms/userState";
 import Collection from "../../collection";
@@ -10,6 +13,9 @@ import LoginTab from "../loginTab";
 function MyPageTab() {
   const [userState, setUserState] = useRecoilState(userStateAtom);
 
+  const { data: recentList } = useQuery(["getList"], () => getTemplateList());
+  const { data: myList } = useQuery(["getMyList"], () => getMyList());
+
   return (
     <>
       {userState.id === 0 ? (
@@ -19,8 +25,8 @@ function MyPageTab() {
           <Head type="title" title="계정" />
           <ContentWrapper>
             <MyInfo />
-            <Collection title="내가 공유한 템플릿" />
-            <Collection title="최근에 다운로드한 템플릿" />
+            <Collection title="내가 공유한 템플릿" data={myList} />
+            <Collection title="최근에 다운로드한 템플릿" data={recentList} />
           </ContentWrapper>
         </Background>
       )}

@@ -1,5 +1,7 @@
+import { useMutation } from "react-query";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { BookmarkTemplate, LikeTemplate } from "../../../apis/score";
 import { pxToRem } from "../../../assets/constants/pxToRem";
 import { ModalIcons } from "../../../assets/images";
 import { TemplateInfoTypes } from "../../../assets/types/templateInfoType";
@@ -11,19 +13,21 @@ function ModalContentsViewTemplate({
   title,
   tags,
   author,
+  id,
   date,
   like,
   favorite,
   comments,
+  preview,
+  onSubmit,
 }: TemplateInfoTypes) {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
+  const Bookmark = useMutation(["bookmark"], () => BookmarkTemplate(id));
+  const Like = useMutation(["like"], () => LikeTemplate(id));
 
   return (
     <Background>
-      <BannerImage
-        alt="banner-image"
-        src="https://cdn.dribbble.com/users/1625099/screenshots/14580528/media/d4535805429570af166acbd939358209.png?compress=1&resize=400x300"
-      />
+      <BannerImage alt="banner-image" src={preview} />
       <div>
         <Wrapper>
           <Info>
@@ -49,14 +53,24 @@ function ModalContentsViewTemplate({
             <Info>
               <h2>좋아요</h2>
               <div>
-                <img src={ModalIcons.Thumb} />
+                <img
+                  src={ModalIcons.Thumb}
+                  onClick={() => {
+                    Like.mutate();
+                  }}
+                />
                 <h1>{like}</h1>
               </div>
             </Info>
             <Info>
               <h2>즐겨찾기</h2>
               <div>
-                <img src={ModalIcons.Favorite} />
+                <img
+                  src={ModalIcons.Favorite}
+                  onClick={() => {
+                    Bookmark.mutate();
+                  }}
+                />
                 <h1>{favorite}</h1>
               </div>
             </Info>
@@ -77,7 +91,18 @@ function ModalContentsViewTemplate({
               })
             }
           />
-          <Button type="small" label="적용" buttonColor="white" />
+          <Button
+            type="small"
+            label="적용"
+            buttonColor="white"
+            onClick={() => {
+              onSubmit();
+              setModalState({
+                title: "",
+                modalContents: null,
+              });
+            }}
+          />
         </div>
       </div>
     </Background>

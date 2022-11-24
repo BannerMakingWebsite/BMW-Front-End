@@ -82,7 +82,7 @@ function EditFigureTab() {
 
   return (
     <TotalWrapper>
-      <Head type="title" title="도형 서식" />
+      <Head type="title" title="도형 서식" label="ㅁㄴㅇ" />
       <SetOption.Sort
         onClickFront={() => {
           changeArrayOrder(elementList, curIdx, 1);

@@ -1,18 +1,22 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { getPoplarTemplate } from "../../apis/getTemplate";
 import { pxToRem } from "../../assets/constants/pxToRem";
 import { scrollNext, scrollPrev } from "../../assets/constants/scroll";
+import ElementListState from "../../atoms/elementState";
 import { modalStateAtom } from "../../atoms/modalState";
 import ModalContentsViewTemplate from "../Modal/viewTemplate";
 
 interface CollectionProps {
   title: string;
+  data?: any[];
 }
 
-const Collection = ({ title }: CollectionProps) => {
+const Collection = ({ title, data = [] }: CollectionProps) => {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
-
+  const [elementList, setElementList] = useRecoilState(ElementListState);
   const wrapperRef = useRef<HTMLDivElement>(null);
   return (
     <Background>
@@ -26,29 +30,43 @@ const Collection = ({ title }: CollectionProps) => {
           <div onClick={() => scrollNext(wrapperRef)}>▶</div>
         </ScrollWrapper>
         <CollectionWrapper ref={wrapperRef}>
-          <div
-            onClick={() =>
-              setModalState({
-                title: "템플릿 정보",
-                modalContents: (
-                  <ModalContentsViewTemplate
-                    id={0}
-                    title={""}
-                    tags={[]}
-                    author={""}
-                    date={""}
-                    like={0}
-                    favorite={0}
-                    comments={[]}
-                  />
-                ),
-              })
-            }
-          ></div>
-          <div />
-          <div />
-          <div />
-          <div />
+          {data.map((value) => {
+            return (
+              <EachTemplate
+                onClick={() =>
+                  setModalState({
+                    title: "템플릿 정보",
+                    modalContents: (
+                      <ModalContentsViewTemplate
+                        id={value.id}
+                        title={value.title}
+                        tags={[]}
+                        author={""}
+                        date={
+                          value.createTime[0] +
+                          "-" +
+                          value.createTime[1] +
+                          "-" +
+                          value.createTime[2]
+                        }
+                        like={value.goodCount}
+                        favorite={value.bookmarkCount}
+                        comments={[]}
+                        preview={value.preview}
+                        onSubmit={() => {
+                          setElementList(
+                            [...elementList].concat(JSON.parse(value.design))
+                          );
+                        }}
+                      />
+                    ),
+                  })
+                }
+              >
+                {value.preview && <img src={value.preview} alt="" />}
+              </EachTemplate>
+            );
+          })}
         </CollectionWrapper>
       </Wrapper>
     </Background>
@@ -68,7 +86,6 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   h1 {
     color: ${({ theme }) => theme.colors.white};
     font-size: ${({ theme }) => theme.fontSizes.text};
@@ -102,7 +119,7 @@ const CollectionWrapper = styled.div`
   display: flex;
 
   overflow-x: scroll;
-
+  overflow-y: hidden;
   ::-webkit-scrollbar {
     height: 0.5rem;
   }
@@ -113,25 +130,30 @@ const CollectionWrapper = styled.div`
     border-radius: 1.5rem;
     box-shadow: inset 0 0 6rem ${({ theme }) => theme.colors.bg5f};
   }
+`;
 
-  > div {
-    background-color: ${({ theme }) => theme.colors.bg2f};
+const EachTemplate = styled.div`
+  background-color: ${({ theme }) => theme.colors.bg2f};
 
-    margin-right: ${pxToRem(10)}rem;
+  margin-right: ${pxToRem(10)}rem;
 
-    min-width: ${pxToRem(210)}rem;
+  width: ${pxToRem(210)}rem;
 
+  border-radius: 1.5rem;
+  transition: filter 0.25s ease;
+  cursor: pointer;
+
+  :hover {
+    filter: brightness(85%);
+  }
+
+  :last-of-type {
+    margin-right: 0;
+  }
+  > img {
+    width: 100%;
+    height: 100%;
     border-radius: 1.5rem;
-    transition: filter 0.25s ease;
-    cursor: pointer;
-
-    :hover {
-      filter: brightness(85%);
-    }
-
-    :last-of-type {
-      margin-right: 0;
-    }
   }
 `;
 

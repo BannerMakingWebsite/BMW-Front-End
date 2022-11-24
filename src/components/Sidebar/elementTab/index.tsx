@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "../../../assets/constants/pxToRem";
+import * as ImageIcons from "../../../assets/images/figure";
 
 function ElementTab() {
   const FigureText = [

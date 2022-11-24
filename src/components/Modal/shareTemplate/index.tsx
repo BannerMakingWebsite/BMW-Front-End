@@ -15,25 +15,20 @@ function ModalContentsShareTemplate() {
   const [elementList] = useRecoilState(ElementListState);
   const [ref] = useRecoilState(CaptureRefState);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [title, setTitle] = useState<string>("");
   const [prev, setPrev] = useState("");
 
   useEffect(() => {
     const element = ref.current;
-    console.log(inputRef.current);
+    console.log(title);
     html2canvas(element).then((value) => {
       console.log(value.toDataURL("image/jpg"));
       setPrev(value.toDataURL("image/jpg"));
     });
-  }, [inputRef.current]);
+  }, []);
 
   const onPost = () => {
-    TempUpload(
-      "template",
-      JSON.stringify(elementList),
-      inputRef.current.value,
-      prev
-    );
+    TempUpload("thumbnail", JSON.stringify(elementList), prev, title);
   };
 
   return (
@@ -42,9 +37,12 @@ function ModalContentsShareTemplate() {
         <img src={prev} alt="template" onClick={onPost} />
         <ModalInput
           type="big"
-          refObj={inputRef}
           label="템플릿 제목"
           id="template-title"
+          onChange={(value) => {
+            setTitle(value);
+            console.log(value);
+          }}
         />
         <ModalInput
           type="checkbox"
