@@ -44,7 +44,9 @@ function App() {
   // };
 
   useEffect(() => {
-    loadUser(setUserState);
+    const lastLoginType = localStorage.getItem("BMW-last-login-type");
+
+    loadUser(setUserState, lastLoginType);
   }, []);
 
   useEffect(() => {

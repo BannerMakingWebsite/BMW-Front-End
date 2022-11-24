@@ -73,26 +73,30 @@ const MyInfo = () => {
             }}
           />
         </NameWrapper>
-        <span
-          onClick={() =>
-            setModalState({
-              title: "비밀번호 변경",
-              modalContents: <ModalContentsVerifyEmail />,
-            })
-          }
-        >
-          비밀번호 변경
-        </span>
-        <span
-          onClick={() =>
-            setModalState({
-              title: "회원 탈퇴",
-              modalContents: <ModalContentsVerifyPassword />,
-            })
-          }
-        >
-          회원 탈퇴
-        </span>
+        {userState.loginType !== "google" && (
+          <>
+            <span
+              onClick={() =>
+                setModalState({
+                  title: "비밀번호 변경",
+                  modalContents: <ModalContentsVerifyEmail />,
+                })
+              }
+            >
+              비밀번호 변경
+            </span>
+            <span
+              onClick={() =>
+                setModalState({
+                  title: "회원 탈퇴",
+                  modalContents: <ModalContentsVerifyPassword />,
+                })
+              }
+            >
+              회원 탈퇴
+            </span>
+          </>
+        )}
       </Wrapper>
     </>
   );

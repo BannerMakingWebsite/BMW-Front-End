@@ -80,11 +80,6 @@ function ModalContentsResetPassword({
             secure: true,
             sameSite: "none",
           });
-          C.setCookie("expireDate", -1, {
-            path: "/",
-            secure: true,
-            sameSite: "none",
-          });
           setUserState({
             id: 0,
             designs: [],
@@ -96,6 +91,7 @@ function ModalContentsResetPassword({
             name: "",
             imageUrl: null,
             authority: "",
+            loginType: "",
           });
           alert("성공적으로 비밀번호 재설정이 완료되었습니다.");
           setModalState({
